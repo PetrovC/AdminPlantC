@@ -1,0 +1,150 @@
+@import '../../variables';
+
+$name-size: 38px;
+
+.dates {
+    margin: 0 $name-size;
+    display: flex;
+    flex-wrap: wrap;
+    font-style: italic;
+    font-weight: bolder;
+    .date {
+        width: calc(100% / 7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 10px;
+        &.left-button {
+            cursor: pointer;
+            position: relative;
+            transition: all .3s ease;
+            &:hover {
+                background-color: rgba(0,0,0,0.05);
+            }
+            &:hover::before {
+                position: absolute;
+                left: 5px;
+                content: '\f100';
+                font-family: "Font Awesome 5 Free"; 
+                font-weight: 900;
+                font-size: 2rem; 
+            }
+        }
+        &.right-button {
+            cursor: pointer;
+            position: relative;
+            transition: all .3s ease;
+            &:hover {
+                background-color: rgba(0,0,0,0.05);
+            }
+            &:hover::before {
+                position: absolute;
+                right: 5px;
+                content: '\f101';
+                font-family: "Font Awesome 5 Free"; 
+                font-weight: 900;
+                font-size: 2rem; 
+            }
+        }
+    }
+}
+
+@keyframes grow {
+    0% {  }
+    100% { transform: scaleX(1);}
+}
+
+.rows {
+    .row {
+        display: flex;
+        margin: 5px;
+        > span {
+            height: fit-content;
+        }
+        > .name {
+            display: flex;
+            justify-content: flex-end;
+            width: $name-size;
+            margin: 0 5px;
+            > span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $green;
+                color: white;
+                height: $name-size;
+                width: $name-size;
+                border-radius: 50%;
+                text-transform: uppercase;     
+            }
+        }
+        .missions {
+            overflow: hidden;
+            flex: 1;
+            .mission-container {
+                background-color: rgba(0,0,0,0.05);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                &.overlap {
+                    max-height: $name-size;
+                    .mission {
+                        position: absolute;
+                    }
+                }
+                .mission {
+                    margin-bottom: 5px;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    transform: scaleX(0);
+                    height: $name-size;
+                    background-color: $blue;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 10px;
+                    animation-name: grow;
+                    animation-duration: .3s;
+                    animation-timing-function: linear;
+                    animation-fill-mode: forwards;
+                    transition: all .3s ease;
+                    opacity: 0.6;
+                    > .text {
+                        display: none;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .dates {
+        .date { font-size: 20px; }
+    }
+    .rows {
+        .row {
+            .missions {
+                .mission-container {
+                    .mission {
+                        .text {
+                            display: block;
+                        }
+                        .icon {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

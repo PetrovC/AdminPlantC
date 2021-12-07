@@ -1,0 +1,18 @@
+@import '../../variables';
+
+main.auth {
+    min-height: 100vh;
+    background-color: $blue;
+    padding: 50px;
+    @include flex-center;
+    .MuiPaper-root {
+        width: 300px;
+        padding: 16px;
+        .MuiTextField-root  {
+            margin: 8px 0;
+            width: 100%;
+        }
+
+    }
+
+}

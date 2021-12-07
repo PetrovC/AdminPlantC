@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.deleteButton {
+    padding: 5px;
+    text-align: right;
+}
+
+.card {
+    padding: 20px;
+    .form-group {
+        margin-bottom: 10px;
+        &:last-child {
+            text-align: right;
+        }
+    }
+}

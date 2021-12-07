@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$dark: #343633;
+$blue: rgb(92,105,175);
+$green: rgb(11,82,79);
+$light-grey: rgb(248,247,253);
+$grey: rgb(171,171,171);
+
+$font-title: Roboto;
+
+$header-height: 100px;
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    0% {transform: rotate(0);}
+    50% {transform: rotate(-180deg);}
+    100% {transform: rotate(-360deg);}
+}
+
+@mixin spin {
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}

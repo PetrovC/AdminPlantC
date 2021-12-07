@@ -1,0 +1,29 @@
+@import '../../variables';
+header {
+    height: $header-height;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    font-family: $font-title;
+    color: $green;
+    font-size: 30px;
+    font-weight: bolder;
+    > :not(.mobile) {
+        display: none;
+    }
+    .logo {
+        height: 70px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    header {
+        justify-content: flex-end;
+        > :not(.mobile) {
+            display: block;
+        }
+        > .mobile {
+            display: none;
+        }
+    }
+}

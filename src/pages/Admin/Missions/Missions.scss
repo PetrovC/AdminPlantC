@@ -1,0 +1,44 @@
+@import '../../../variables';
+
+h1.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+ul.missions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        cursor: pointer;
+        padding: 10px 0;
+        display: flex;
+        label.MuiInputLabel-root {
+            color: black;
+            font-weight: bolder;
+        }
+        input.Mui-disabled {
+            color: $green;
+            font-weight: bolder;
+            -webkit-text-fill-color: unset;
+            cursor: pointer;
+        }
+        .MuiSvgIcon-root { 
+            font-size: 54px;
+            &.spin {
+                @include spin;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .title {
+        span {
+            flex: 1;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import 'variables';
+
+* {
+    font-family: Roboto;
+}
+
+.f-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fadeIn-list {
+    position: relative;
+    > * {
+      position: relative;
+      animation: fadeIn 0.5s linear;
+      animation-fill-mode: both;
+    }
+}
+
+$total-items: 100;
+
+@for $i from 1 through $total-items {
+  .fadeIn-list {
+    > *:nth-child(#{$i}) {
+      animation-delay: .25s * $i;
+    }
+  }
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      top: 100px;
+    }
+    75% {
+      opacity: 0.5;
+      top: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
