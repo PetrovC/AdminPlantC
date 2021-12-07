@@ -16,14 +16,16 @@ import SyncIcon from '@mui/icons-material/Sync';
 
 const Mission = (props) => {
 
-    const {index, id, participant, participantId, type, description, startDate, endDate, setOpen, closed } = props;
+    const {index, id, id_Participant, type, description, date_Debut, date_Fin, id_Projet, setOpen, est_Termine } = props;
 
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
 
     const handleOnClick = () => {
-        axios.get(process.env.REACT_APP_API_URL + '/mission/' + id)
+
+        console.log(id);
+        axios.get(process.env.REACT_APP_API_URL + '/api/tache/ById/' + id)
             .then(({data}) => {
                 dispatch(selectMission(data));
                 setOpen(true);
@@ -36,14 +38,14 @@ const Mission = (props) => {
             id,
             type,
             description,
-            startDate,
-            endDate,
-            participantId,
-            participant,
-            closed: isChecked
+            date_Debut,
+            date_Fin,
+            id_Participant,
+            id_Projet,
+            est_Termine: isChecked
         };
         setIsLoading(true);
-        axios.put(process.env.REACT_APP_API_URL + '/mission/' + id, toUpdate)
+        axios.put(process.env.REACT_APP_API_URL + '/api/tache', toUpdate)
             .then(({data}) => {
                 dispatch(updateMission(toUpdate));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -56,12 +58,12 @@ const Mission = (props) => {
 
     return <li key={id}>
         <TextField fullWidth={true} 
-                   label={`Mission ${index + 1} : (${moment(startDate).format('DD/MM/YY')} - ${moment(endDate).format('DD/MM/YY')})`} 
+                   label={`Mission ${index + 1} : (${moment(date_Debut).format('DD/MM/YY')} - ${moment(date_Fin).format('DD/MM/YY')})`} 
                    value={type} 
-                   disabled={true} 
+                   readOnly={true} 
                    onClick={handleOnClick}/>
         {!isLoading && <Checkbox onChange={handleOnChange}
-                                 checked={closed??false}
+                                 checked={est_Termine??false}
                                  sx={{ 
                                      border: '1px solid rgba(0, 0, 0, 0.38)', 
                                      borderRadius : '3px' , 
@@ -90,13 +92,13 @@ const Missions = () => {
 
     const dispatch = useDispatch();
 
-    const [selected, setSelected] = useState('');
+    const [selected, setSelected] = useState(undefined);
     const [open, setOpen] = useState(false);
     
     const [participantMissions, setParticipantMissions ] = useState([]);
 
     useEffect(() => {
-        setParticipantMissions(missions.filter(m => (!selected && !m.participantId) || m.participantId === selected));
+        setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant) || m.id_Participant === selected));
     }, [selected, missions]);
 
 

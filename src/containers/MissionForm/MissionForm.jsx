@@ -35,27 +35,27 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const mission = useSelector(state => state.missions.selectedMission);
-    const participants = useSelector(state => state.participants.list);
 
     const types = ['Tondre', 'Arroser', 'Planter', 'Elaguer'];
 
     const defaultValues = {
         type: '',
         description: '',
-        participantId: '',
-        dates: [moment().startOf('day'), moment().startOf('day')]
+        id_Participant: '',
+        dates:[]
+        
     };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, dates: [mission?.startDate, mission?.endDate] });
+        reset({ ...defaultValues, ...mission, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
     }, [mission]);
 
     const onDelete = () => {
         if(mission?.id) {
             setIsLoading(true);
-            axios.delete(process.env.REACT_APP_API_URL + '/mission/' + mission.id)
+            axios.delete(process.env.REACT_APP_API_URL + '/api/tache/' + mission.id)
                 .then(() => {
                     dispatch(removeMission(mission.id));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -74,9 +74,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const onSubmit = data => {
         const cleanData= {
             ...data,
-            participant: participants.find(p => p.id === data.participantId),
-            startDate: formatDate(data.dates[0]), 
-            endDate: formatDate(data.dates[1] ?? data.dates[0]),
+            date_Debut: formatDate(data.dates[0]), 
+            date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
+            id_Projet: 65, //rajouter dans le formulaire ultérieurement
             dates: null
         };
 
@@ -86,7 +86,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                 id: mission.id
             };
             setIsLoading(true);
-            axios.put(process.env.REACT_APP_API_URL + '/mission/' + updatedMission.id, updatedMission)
+            axios.put(process.env.REACT_APP_API_URL + '/api/tache/' , updatedMission)
                 .then(() => {
                     dispatch(updateMission(updatedMission));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -100,9 +100,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         }
         else {
             setIsLoading(true);
-            axios.post(process.env.REACT_APP_API_URL + '/mission', cleanData)
+            axios.post(process.env.REACT_APP_API_URL + '/api/tache', cleanData)
                 .then(({data}) => {
-                    dispatch(addMission({...cleanData, id: data.id}));
+                    dispatch(addMission({...cleanData, id: data}));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
                     onSuccess();
                 })
@@ -159,7 +159,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                         } />
                     </div>
                     <div className="form-group">
-                        <Controller name="participantId"
+                        <Controller name="id_Participant"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
                                     />

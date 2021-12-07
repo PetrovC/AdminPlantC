@@ -10,15 +10,15 @@ import { loadParticipants } from "../../store/participantsSlice";
 import './Admin.scss';
 
 const Admin = () => {
-    useAuth();
+    //useAuth();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_URL + '/mission')
+        axios.get(process.env.REACT_APP_API_URL + '/api/tache')
             .then(({data}) => dispatch(loadMissions(data)))
             .catch();
-        axios.get(process.env.REACT_APP_API_URL + '/participant')
+        axios.get(process.env.REACT_APP_API_URL + '/api/participant')
             .then(({data}) => dispatch(loadParticipants(data)))
             .catch();
     }, []);

@@ -9,7 +9,6 @@ import MissionForm from "../../../containers/MissionForm/MissionForm";
 import AddMissionButton from "../../../containers/AddMissionButton/AddMissionButton";
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
-import { SignalWifiStatusbarNullOutlined } from "@mui/icons-material";
 
 const Agenda = () => 
 {
@@ -29,7 +28,7 @@ const Agenda = () =>
 
     const editEvent = () => {
         if(currentMission) {
-            axios.get(process.env.REACT_APP_API_URL + '/mission/' + currentMission.id)
+            axios.get(process.env.REACT_APP_API_URL + '/api/tache/ById/' + currentMission.id)
                 .then(({data}) => {
                     dispatch(selectMission(data));
                     setAnchorEl(null);
@@ -63,7 +62,7 @@ const Agenda = () =>
                 <MissionForm onSuccess={handleOnSuccess}/>
             </Dialog>
             <div className="calendar">
-                <Calendar datas={datas.filter(m => m.participantId)}
+                <Calendar datas={datas.filter(m => m.id_Participant)}
                           week={week} 
                           onSwipedLeft={handleSwipedLeft}
                           onSwipedRight={handleSwipedRight}

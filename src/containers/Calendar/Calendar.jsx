@@ -13,24 +13,25 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
 const CalendarEvent = (props) => {
 
-    const {id, type, description, startDate, endDate, interval, onEventClick} = props;
+    const {id, type, description, date_Debut, date_Fin, interval, onEventClick, index, overlap} = props;
 
     const [startDiff, setStartDiff] = useState(0);
     const [endDiff, setEndDiff] = useState(0);
 
     useEffect(() => {
-        setStartDiff(moment(startDate).diff(interval[0], 'days'));
-        setEndDiff(interval[6].diff(moment(endDate), 'days'));
-    }, [interval, endDate, startDate]);
+        setStartDiff(moment(date_Debut).diff(interval[0], 'days'));
+        setEndDiff(interval[6].diff(moment(date_Fin), 'days'));
+    }, [interval, date_Debut, date_Fin]);
 
     const style = {
         marginLeft: (100 / 7 * startDiff) + 1 + '%',
         marginRight: (100 / 7 * endDiff) + 1 + '%',
-        width: ((100 / 7) * (moment(endDate).diff(moment(startDate), 'days') + 1)) - 2 + '%'
+        top: overlap ? 0 : index * 43,
+        width: ((100 / 7) * (moment(date_Fin).diff(moment(date_Debut), 'days') + 1)) - 2 + '%'
     };
 
     const handleOnClick = e => {
-        onEventClick({ event: e, mission: { id, type, startDate, endDate } })
+        onEventClick({ event: e, mission: { id } })
     }
 
     const getToolTip = () => {
@@ -58,20 +59,28 @@ const  CalendarGroup = (props) => {
 
     const [overlap, setOverlap] = useState(true);
 
+    const [height, setHeight] = useState(0);
+
+    useEffect(() => {
+        let h = overlap ? 38 : missions.length * 43 - 5;
+        setHeight(h);
+    }, [missions, interval, overlap]);
+
     const getLabel = (missions) => {
         if(missions.length)
-            return missions[0].participant.prenom.slice(0,1) + missions[0].participant.nom.slice(0,1);
+            return 'KL';
+            //return missions[0].participant.prenom.slice(0,1) + missions[0].participant.nom.slice(0,1);
     }
 
     return (
-        <div className={classNames('row')}>
+        <div className={classNames('row')} style={{height: height}}>
             <span className="name">
                 <span>{getLabel(missions)}</span>
             </span>
             <div className="missions">
                 <div className={classNames('mission-container', {overlap})}>
-                    {missions.map(mission => 
-                        <CalendarEvent key={mission.id} {...mission} interval={interval} onEventClick={onEventClick}/>
+                    {missions.map((mission, index) => 
+                        <CalendarEvent key={mission.id} {...mission} interval={interval} onEventClick={onEventClick} index={index} overlap={overlap}/>
                     )}
                 </div>
             </div>
@@ -96,11 +105,11 @@ const Calendar = ({ datas, week, onSwipedLeft, onSwipedRight, onEventClick }) =>
 
     const groupByParticipant = (tab) => {
         return tab.reduce((result, mission) => {
-            if(moment(mission.startDate).isBetween(interval[0], interval[6],'days', '[]') || moment(mission.endDate).isBetween(interval[0], interval[6], 'days', '[]')){
-                if(!result[mission.participantId]) {
-                    result[mission.participantId] = []
+            if(moment(mission.date_Debut).isBetween(interval[0], interval[6],'days', '[]') || moment(mission.date_Fin).isBetween(interval[0], interval[6], 'days', '[]')){
+                if(!result[mission.id_Participant]) {
+                    result[mission.id_Participant] = []
                 }
-                result[mission.participantId].push(mission);
+                result[mission.id_Participant].push(mission);
             }
             return result;
         }, {});
