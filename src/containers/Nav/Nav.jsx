@@ -7,12 +7,10 @@ import './Nav.scss';
 
 const Nav = () => {
     return <nav>
+        <div className="logo_plantC">
+            <img src="assets/img/PlantC.png" alt="logo" />
+        </div>
         <ul>
-            <li>
-                <NavLink className="logo" to='/'>
-                    <img src="assets/img/logo.png" alt="logo" />
-                </NavLink>
-            </li>
             <li>
                 <NavLink to='/'>
                     <EventIcon />

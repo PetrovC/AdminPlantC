@@ -126,7 +126,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     </div>
                 </>}
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group">
+                    <div className="form-group border_green">
                         <Controller name="type"
                                     control={control} 
                                     render={({ field }) => <Autocomplete {...field} 
@@ -135,6 +135,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                         onChange={(e, data) => field.onChange(data)}
                                         renderInput={(params) =>
                                             <TextField {...field} {...params}
+                                                color="success"
                                                 required={true}
                                                 label="Type d'Activité"
                                                 fullWidth={true}
@@ -142,13 +143,15 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                                 helperText={!!errors.type && errors.type.message} />
 
                                     } />
+                                    
                         } />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group border_green">
                         <Controller name="description"
                                     control={control} 
                                     render={({ field }) => 
                                             <TextField {...field}
+                                                color="success"
                                                 label="Description"
                                                 multiline={true}
                                                 fullWidth={true}
@@ -158,13 +161,13 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
                         } />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group border_green">
                         <Controller name="id_Participant"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
                                     />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <Controller name="dates"
                                     control={control} 
                                     render={({ field }) => <DateRangePicker {...field}
@@ -174,12 +177,14 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                         inputFormat="DD/MM/YYYY"
                                         renderInput={(startParams, endParams) => <>
                                             <TextField {...startParams}
+                                                color="success"
                                                 required={true}
                                                 fullWidth={true}
                                                 error={!!errors.dates}
                                                 helperText={!!errors.dates && errors.dates.message} />
                                             <Box sx={{ mx: 2 }}> au </Box>
                                             <TextField {...endParams}
+                                                color="success"
                                                 required={true}
                                                 fullWidth={true}
                                                 error={!!errors.dates} />

@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header>
-            <img src="assets/img/logo.png" alt="logo" className="logo mobile" />
+            <img src="assets/img/PlantC.png" alt="logo" className="logo mobile" />
             <span>
                  {/* { isLogged && <>Amaury Olivier</> } */}
                 { <>Amaury Olivier</> }
