@@ -116,6 +116,43 @@ $name-size: 38px;
                     &:hover {
                         opacity: 1;
                     }
+                    &.semis-préalable-à-la-plantation{
+                        background-color: #DE7E3A;
+
+                    }
+                    &.paillage{
+                        background-color: #DE7E3A;
+
+                    }
+                    &.plantation{
+                        background-color: #56A347;
+                        opacity: 55%;
+                        color: black;
+                    }
+                    &.arrosage{
+                        background-color: #5C69AF;
+                        opacity: 25%;
+                        
+                    }
+                    &.désherbage{
+                        background-color: #56A347;
+                        opacity:  35%;
+                        color: black;
+
+                    }
+                    &.préparation-du-sol{
+                        background-color: #DE7E3A;
+                    }
+                    &.taille-entretien{
+                        background-color: #E8E37D;
+                        opacity: 65%;
+
+                    }
+                    &.closed::before{
+                        content:'⬤';
+                        margin-right: 5px;
+                        color: $green;
+                    }
                 }
             }
         }
