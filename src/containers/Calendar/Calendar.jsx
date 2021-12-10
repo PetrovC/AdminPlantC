@@ -13,7 +13,7 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
 const CalendarEvent = (props) => {
 
-    const {id, type, description, date_Debut, date_Fin, interval, onEventClick, index, overlap} = props;
+    const {id, est_Termine,type, description, date_Debut, date_Fin, interval, onEventClick, index, overlap} = props;
 
     const [startDiff, setStartDiff] = useState(0);
     const [endDiff, setEndDiff] = useState(0);
@@ -44,7 +44,7 @@ const CalendarEvent = (props) => {
 
     return <>
         <Tooltip placement="top" title={getToolTip()} arrow={true}>
-            <span onClick={handleOnClick} className={classNames('mission')} 
+            <span onClick={handleOnClick} className={classNames('mission', type.replace(' ','-'), {'closed': est_Termine})} 
                         style={style}>
                 <span className="text">{type}</span>
                 <ParkIcon className="icon" />

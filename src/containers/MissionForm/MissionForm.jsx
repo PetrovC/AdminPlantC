@@ -11,6 +11,7 @@ import { addMission, updateMission, removeMission } from '../../store/missionsSl
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import ParticipantsSelect from '../ParticipantsSelect/ParticipantsSelect';
+import ProjetsSelect from '../ProjetSelect/ProjetSelect';
 import { Box } from '@mui/system';
 import { showToast, askConfirmation } from '../../store/interactionsSlice';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
@@ -27,6 +28,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             .of(yup.date().required('Veuillez entrer 2 dates')),
         description: yup
             .string()
+            .required("Le champs est requis")
             .max(255)
     });
 
@@ -36,11 +38,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
     const mission = useSelector(state => state.missions.selectedMission);
 
-    const types = ['Tondre', 'Arroser', 'Planter', 'Elaguer'];
+    const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
 
     const defaultValues = {
         type: '',
         description: '',
+        id_Projet: '',
         id_Participant: '',
         dates:[]
         
@@ -76,7 +79,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             ...data,
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
-            id_Projet: 65, //rajouter dans le formulaire ultérieurement
+            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
             dates: null
         };
 
@@ -150,6 +153,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     render={({ field }) => 
                                             <TextField {...field}
                                                 label="Description"
+                                                required={true}
                                                 multiline={true}
                                                 fullWidth={true}
                                                 rows={3}
@@ -162,6 +166,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                         <Controller name="id_Participant"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
+                                    />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="id_Projet"
+                                    control={control}
+                                    render={({field}) => <ProjetsSelect {...field} />}
                                     />
                     </div>
                     <div className="form-group">
