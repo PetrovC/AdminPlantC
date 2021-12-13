@@ -1,11 +1,16 @@
 @import '../../variables';
 
-
-    
+    .Controller{
+        border-color: $green;
+    }
     .form-group {
         padding: 20px;
         margin: 1rem 0;
         // &:last-child {
         //     text-align: right;
         // }
+    }
+    .nom_prenom_block,.num_email_block{
+        display: flex;
+        justify-content: center;
     }
