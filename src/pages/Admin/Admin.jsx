@@ -10,7 +10,7 @@ import { loadParticipants } from "../../store/participantsSlice";
 import './Admin.scss';
 
 const Admin = () => {
-    useAuth();
+    //useAuth();
 
     const dispatch = useDispatch();
 

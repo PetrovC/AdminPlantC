@@ -4,8 +4,7 @@ import { useNavigate } from "react-router";
 
 
 export const useAuth = () => {
-
-    const isLogged = useSelector(state => state.login.isLogged);
+    const isLogged = useSelector(state => state.session.isLogged);
     const navigate = useNavigate();
 
     useEffect(() => {
