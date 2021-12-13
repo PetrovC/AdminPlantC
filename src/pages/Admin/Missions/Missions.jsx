@@ -102,7 +102,7 @@ const Missions = () => {
 
     useEffect(() => {
         setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant) || m.id_Participant === selected));
-        setProjetsMissions(missions.filter(m =>(!selected && !m.id_Projet) || m.id_Projet === selected));
+        //setProjetsMissions(missions.filter(m =>(!selected && !m.id_Projet) || m.id_Projet === selected));
     }, [selected, missions, projetsMissions]);
 
 
@@ -128,9 +128,9 @@ const Missions = () => {
             <ul className="missions fadeIn-list">
                 {participantMissions.map((mission, index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen} />)}
             </ul>
-            <ul>
+            {/* <ul>
                 {projetsMissions.map((mission,index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen}/>)}
-            </ul>
+            </ul> */}
             <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true}>
                 <MissionForm onSuccess={handleOnSuccess} />
             </Dialog>

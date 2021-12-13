@@ -1,5 +1,6 @@
 import {LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './typeLogin'
 import {LOGOUT } from '../logout/typeLogout'
+import jwt_decode from "jwt-decode"
 
 const initialStateComments = {
     isLoading: false,
@@ -22,11 +23,12 @@ const reducerLogin = (state = initialStateComments, action) => {
                 error: ''
             }
         case LOGIN_SUCCESS:
+            const decodedToken= jwt_decode(action.payload.token)
             return {
                 ...state,
                 isLoading: false,
                 isLogged: true,
-                id: action.payload.id,
+                id: decodedToken.id,
                 nom: action.payload.nom,
                 prenom: action.payload.prenom,
                 token: action.payload.token,

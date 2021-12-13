@@ -11,7 +11,7 @@ import { loadProjets } from "../../store/projetsSlice";
 import './Admin.scss';
 
 const Admin = () => {
-    useAuth();
+    //useAuth();
 
     const dispatch = useDispatch();
 
