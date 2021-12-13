@@ -119,7 +119,7 @@ const ParticipantForm = ({ handleOnSuccess }) => {
 
     return (
         <form onSubmit={handleSubmit(dataSend => console.log("dataSend => ", dataSend))}>
-            <div className="form-groupe">
+            <div className="form-group">
                 <Controller
                     name="fonction"
                     control={control}
