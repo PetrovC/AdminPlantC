@@ -7,19 +7,30 @@ import Nav from "../../containers/Nav/Nav";
 import { useAuth } from "../../hooks/auth-hook";
 import { loadMissions } from "../../store/missionsSlice";
 import { loadParticipants } from "../../store/participantsSlice";
+import { loadProjets } from "../../store/projetsSlice";
 import './Admin.scss';
 
 const Admin = () => {
-    useAuth();
+    //useAuth();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_URL + '/mission')
-            .then(({data}) => dispatch(loadMissions(data)))
+        axios.get(process.env.REACT_APP_API_URL + '/api/tache')
+            .then(({ data }) => dispatch(loadMissions(data)))
             .catch();
-        axios.get(process.env.REACT_APP_API_URL + '/participant')
-            .then(({data}) => dispatch(loadParticipants(data)))
+        axios.get(process.env.REACT_APP_API_URL + '/api/participant')
+            .then(({ data }) => dispatch(loadParticipants(data)))
+            .catch();
+        axios.get(process.env.REACT_APP_API_URL + '/api/projet/resume/all')
+        /*probleme a regler*/
+            .then(({data}) => {
+                // console.log("data admin =>",data)
+                // console.log("teste => data map",data)
+                // dispatch(loadProjets(data))
+                })
+                
+            
             .catch();
     }, []);
 
@@ -30,7 +41,7 @@ const Admin = () => {
                 <Header />
                 <main>
                     <Outlet></Outlet>
-                </main> 
+                </main>
             </div>
         </div>
     );

@@ -1,34 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const participantsSlice = createSlice({
-    name: 'participants',
+export const projetsSlice = createSlice({
+    name: 'projets',
     initialState: {
         
-        selectedParticipant: null,
-        list: []
+        selectedProjet: null,
+        list: [{}]
     },
     reducers: {
-        loadParticipants: (state, {payload}) =>  {
+        loadProjet: (state, {payload}) =>  {
             state.list = payload
         },
-        addParticipants: (state, {payload}) => {
+        addProjet: (state, {payload}) => {
             state.list = [...state.list, payload];
         },
-        removeParticipant: (state, {payload}) => {
+        removeProjet: (state, {payload}) => {
             state.list = state.list.filter(ev => ev.id !== payload);
         },
-        updateParticipant: (state, {payload}) => {
+        updateProjet: (state, {payload}) => {
             const toUpdate = state.list.find(ev => ev.id === payload.id);
             Object.assign(toUpdate, payload);
             state.list = [...state.list]
         },
-        selectParticipant: (state, {payload}) => {
+        selectProjet: (state, {payload}) => {
             state.selectedMission = { ...payload }
         }
     },
 })
 
-export const { loadParticipants } = participantsSlice.actions;
+export const { loadProjets } = projetsSlice.actions;
 
-export default participantsSlice.reducer;
-
+export default projetsSlice.reducer;
