@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import './Missions.scss';
-import { Checkbox, Dialog, TextField,  } from '@mui/material';
+import { Checkbox, Dialog, TextField, } from '@mui/material';
 import moment from 'moment';
 import ParticipantsSelect from '../../../containers/ParticipantsSelect/ParticipantsSelect';
+import ProjetsSelect from '../../../containers/ProjetSelect/ProjetSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { selectMission, updateMission } from '../../../store/missionsSlice';
@@ -16,7 +17,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 
 const Mission = (props) => {
 
-    const {index, id, id_Participant, type, description, date_Debut, date_Fin, id_Projet, setOpen, est_Termine } = props;
+    const { index, id, id_Participant, type, description, date_Debut, date_Fin, id_Projet, setOpen, est_Termine } = props;
 
     const dispatch = useDispatch();
 
@@ -26,10 +27,11 @@ const Mission = (props) => {
 
         console.log(id);
         axios.get(process.env.REACT_APP_API_URL + '/api/tache/ById/' + id)
-            .then(({data}) => {
+            .then(({ data }) => {
                 dispatch(selectMission(data));
                 setOpen(true);
             });
+
     }
 
     const handleOnChange = (e) => {
@@ -46,7 +48,7 @@ const Mission = (props) => {
         };
         setIsLoading(true);
         axios.put(process.env.REACT_APP_API_URL + '/api/tache', toUpdate)
-            .then(({data}) => {
+            .then(({ data }) => {
                 dispatch(updateMission(toUpdate));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
             }).catch(error => {
@@ -57,31 +59,31 @@ const Mission = (props) => {
     }
 
     return <li key={id}>
-        <TextField fullWidth={true} 
-                   label={`Mission ${index + 1} : (${moment(date_Debut).format('DD/MM/YY')} - ${moment(date_Fin).format('DD/MM/YY')})`} 
-                   value={type} 
-                   readOnly={true} 
-                   onClick={handleOnClick}/>
+        <TextField fullWidth={true}
+            label={`Mission ${index + 1} : (${moment(date_Debut).format('DD/MM/YY')} - ${moment(date_Fin).format('DD/MM/YY')})`}
+            value={type}
+            readOnly={true}
+            onClick={handleOnClick} />
         {!isLoading && <Checkbox onChange={handleOnChange}
-                                 checked={est_Termine??false}
-                                 sx={{ 
-                                     border: '1px solid rgba(0, 0, 0, 0.38)', 
-                                     borderRadius : '3px' , 
-                                     padding: 0,
-                                     marginLeft : '10px' 
-                                 }}
-                                 icon={<ClearOutlinedIcon />}
-                                 checkedIcon={<CheckCircleOutlineOutlinedIcon sx={{ color: 'rgb(11,82,79)' }}/>}
-                  />}
+            checked={est_Termine ?? false}
+            sx={{
+                border: '1px solid rgba(0, 0, 0, 0.38)',
+                borderRadius: '3px',
+                padding: 0,
+                marginLeft: '10px'
+            }}
+            icon={<ClearOutlinedIcon />}
+            checkedIcon={<CheckCircleOutlineOutlinedIcon sx={{ color: 'rgb(11,82,79)' }} />}
+        />}
         {isLoading && <Checkbox disabled={true}
-                                sx={{ 
-                                    border: '1px solid rgba(0, 0, 0, 0.38)', 
-                                    borderRadius : '3px' , 
-                                    padding: 0,
-                                    marginLeft : '10px' 
-                                }}
-                                icon={<SyncIcon className="spin" />}
-                  />}
+            sx={{
+                border: '1px solid rgba(0, 0, 0, 0.38)',
+                borderRadius: '3px',
+                padding: 0,
+                marginLeft: '10px'
+            }}
+            icon={<SyncIcon className="spin" />}
+        />}
 
     </li>
 }
@@ -94,12 +96,14 @@ const Missions = () => {
 
     const [selected, setSelected] = useState(undefined);
     const [open, setOpen] = useState(false);
-    
-    const [participantMissions, setParticipantMissions ] = useState([]);
+
+    const [participantMissions, setParticipantMissions] = useState([]);
+    const [projetsMissions, setProjetsMissions]= useState([]);
 
     useEffect(() => {
         setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant) || m.id_Participant === selected));
-    }, [selected, missions]);
+        setProjetsMissions(missions.filter(m =>(!selected && !m.id_Projet) || m.id_Projet === selected));
+    }, [selected, missions, projetsMissions]);
 
 
     const handleOnChange = e => {
@@ -112,18 +116,23 @@ const Missions = () => {
 
     const handleOnClick = (e) => {
         dispatch(selectMission(null));
+        
         setOpen(true);
     };
 
     return (
         <>
-            <AddMissionButton onClick={handleOnClick}/>
-            <h1 className="title" ><span>Missions :</span><span><ParticipantsSelect value={selected} onChange={handleOnChange}/></span></h1>
+            <AddMissionButton onClick={handleOnClick} />
+            <h1 className="title" ><span>Missions :</span><span><ParticipantsSelect value={selected} onChange={handleOnChange} /></span>
+            <span><ProjetsSelect value={selected} onChange={handleOnChange} /></span></h1>
             <ul className="missions fadeIn-list">
-                { participantMissions.map((mission, index) => <Mission key={mission.id} {...mission} index={index}  setOpen={setOpen} />) }
+                {participantMissions.map((mission, index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen} />)}
+            </ul>
+            <ul>
+                {projetsMissions.map((mission,index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen}/>)}
             </ul>
             <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true}>
-                <MissionForm onSuccess={handleOnSuccess}/>
+                <MissionForm onSuccess={handleOnSuccess} />
             </Dialog>
         </>
     );
