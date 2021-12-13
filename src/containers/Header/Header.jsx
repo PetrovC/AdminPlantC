@@ -13,8 +13,8 @@ const Header = () => {
         <header>
             <img src="assets/img/logo.png" alt="logo" className="logo mobile" />
             <span>
-                 {/* { isLogged && <>Amaury Olivier</> } */}
-                { <>Amaury Olivier</> }
+                 {/* { isLogged && <>Agri Team</> } */}
+                { <>Agri Team</> }
             </span>
             <div>
                 <Button disabled={!isLogged} type="button" color="primary" onClick= {() => dispatch(logoutRequest())}>Se déconnecter</Button>
