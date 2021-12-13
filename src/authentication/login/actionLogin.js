@@ -1,6 +1,5 @@
 import {LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './typeLogin'
 import axios from 'axios'
-import { useNavigate } from 'react-router'
 import {falseLoginService} from './falseLoginService'
 
 const APILogin = () => {
@@ -9,10 +8,10 @@ const APILogin = () => {
     }
 }
 
-const APILoginSuccess = (token) => {
+const APILoginSuccess = (data) => {
     return {
         type: LOGIN_SUCCESS,
-        payload: token
+        payload: data
     }
 }
 
@@ -29,7 +28,7 @@ export const LoginRequest = ({email, password}) => {
         
         dispatch(APILogin())
 
-        axios.post('https://', {email, password})
+        axios.post('http://192.168.10.60:81/Login', {email, password})
         .then(res => {
             dispatch(APILoginSuccess(res.data))
         })

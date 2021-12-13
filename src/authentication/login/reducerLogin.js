@@ -4,8 +4,11 @@ import {LOGOUT } from '../logout/typeLogout'
 const initialStateComments = {
     isLoading: false,
     isLogged: false,
+    id: 0,
+    nom: '',
+    prenom: '',
     token: '',
-    error: ''
+    error: '',
 }
 
 const reducerLogin = (state = initialStateComments, action) => {
@@ -23,7 +26,10 @@ const reducerLogin = (state = initialStateComments, action) => {
                 ...state,
                 isLoading: false,
                 isLogged: true,
-                token: action.payload,
+                id: action.payload.id,
+                nom: action.payload.nom,
+                prenom: action.payload.prenom,
+                token: action.payload.token,
                 error: ''
             }
         case LOGIN_ERROR:
@@ -39,6 +45,9 @@ const reducerLogin = (state = initialStateComments, action) => {
                 ...state,
                 isLoading: false,
                 isLogged: false,
+                id: 0,
+                nom: '',
+                prenom: '',
                 token: '',
                 error: ''
             }
