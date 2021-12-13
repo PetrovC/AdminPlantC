@@ -95,3 +95,27 @@ const Agenda = () =>
 };
 
 export default Agenda;
+
+
+// const [fonctions, setFonctions] = React.useState(["agriculteur", "planteur"]);
+//   const handleChange = (event) => {
+//     const {
+//       target: { value }
+//     } = event;
+//     if (value.length) {
+//       setFonctions(typeof value === "string" ? value.split(",") : value);
+//     }
+//   };
+//   return (
+//     <>
+//       <Select
+//         id="demo-multiple-name"
+//         multiple
+//         value={fonctions}
+//         onChange={handleChange}
+//         input={<OutlinedInput label="Name" />}
+//       >
+//         <MenuItem value="planteur">planteur</MenuItem>
+//         <MenuItem value="agriculteur">agriculteur</MenuItem>
+//       </Select>
+//     </>
