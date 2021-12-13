@@ -1,16 +1,89 @@
 @import '../../variables';
 
-    .Controller{
-        border-color: $green;
+    .image{
+        display: none;
     }
     .form-group {
-        padding: 20px;
-        margin: 1rem 0;
-        // &:last-child {
-        //     text-align: right;
-        // }
+        margin: 2rem;
     }
-    .nom_prenom_block,.num_email_block{
+    .btn_valider_participant{
         display: flex;
         justify-content: center;
+    }
+
+    @media screen and (min-width:1330px){
+        .form-group {
+            margin: 2rem;
+        }
+        .container_form_image ,.container_form_email_nom{
+            display: grid;
+            grid-template-columns: 0% 1fr 1fr 0%;
+            align-items: center;
+            justify-content: center;
+        }
+        .container_form{
+            grid-column: 2/3;
+        }
+        .nom_email_block{
+            grid-column: 2/3;
+        }
+        .num_prenom_block{
+            grid-column: 3/4;
+        }
+        .btn_valider_participant{
+            display: flex;
+            justify-content: center;
+        }
+        .container_form:last-child{
+            padding: 0;
+            margin: 1rem 2rem;
+        }
+        .container_form_email_nom{
+            margin-top: -2rem;
+        }
+        .image{
+            display: grid;
+            justify-content: center;
+        }
+        .image img{
+            width: 25vw;
+        }
+    }
+    @media screen and (min-width: 992px){
+        .form-group {
+            margin: 2rem;
+        }
+        .container_form_image ,.container_form_email_nom{
+            display: grid;
+            grid-template-columns: 10% 2fr 2fr 10%;
+            align-items: center;
+            justify-content: center;
+        }
+        .container_form{
+            grid-column: 2/3;
+        }
+        .nom_email_block{
+            grid-column: 2/3;
+        }
+        .num_prenom_block{
+            grid-column: 3/4;
+        }
+        .btn_valider_participant{
+            display: flex;
+            justify-content: center;
+        }
+        .container_form:last-child{
+            padding: 0;
+            margin: 1rem 2rem;
+        }
+        .container_form_email_nom{
+            margin-top: -2rem;
+        }
+        .image{
+            display: grid;
+            justify-content: center;
+        }
+        .image img{
+            width: 25vw;
+        }
     }
