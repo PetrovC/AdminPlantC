@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import MissionForm from "../../../containers/MissionForm/MissionForm";
 import { selectMission } from "../../../store/missionsSlice";
+import "./MissionAdd.scss";
 
 const MissionAdd = () => {
 
@@ -21,7 +22,7 @@ const MissionAdd = () => {
 
     return (
         <>
-            <h1 className="title">Ajouter une mission</h1>
+            <h1 className="titre_ajouter_mission">Ajouter une mission</h1>
             <MissionForm onSuccess={handleOnSuccess} />
         </>
     );

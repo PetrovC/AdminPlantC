@@ -1,18 +1,66 @@
 @import '../../../variables';
 
-main.auth {
-    min-height: 100vh;
-    background-color: $blue;
-    padding: 50px;
-    @include flex-center;
-    .MuiPaper-root {
-        width: 300px;
-        padding: 16px;
-        .MuiTextField-root  {
-            margin: 8px 0;
-            width: 100%;
-        }
-
-    }
-
+// main.auth {
+//     min-height: 100vh;
+//     background-color: $blue;
+//     padding: 50px;
+//     @include flex-center;
+//     .MuiPaper-root {
+//         width: 300px;
+//         padding: 16px;
+//         .MuiTextField-root  {
+//             margin: 8px 0;
+//             width: 100%;
+//         }
+//     }
+// }
+.auth{
+    display: grid;
+    grid-template-columns: 20% 2fr 2fr 20%;
+    grid-template-rows: repeat(3,1fr);
+    justify-content: center;
+    margin-top: 2rem;
+}
+.titre_login{
+    grid-row: 1;
+    grid-column: 2/3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 2rem;
+}
+.block_form , .image_login{
+    grid-row: 2;
+}
+.block_form{
+    grid-row: 2/4;
+    grid-column: 2/3;
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+}
+.block_email , .block_mdp , .block_btn{
+    margin: 2rem;
+}
+.block_btn Button{
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: $green;
+    color: white;
+    transition: 0.8s;
+}
+.block_btn Button:hover{
+    border: 2px solid $green;
+    border-radius: 5px;
+    background-color: white;
+    color: $green;
+    transition: 0.8s;
+}
+.image_login{
+    grid-column: 3/4;
+    display: flex;
+    justify-content: center;
+}
+.image_login img{
+    width: 25rem;
 }

@@ -45,14 +45,6 @@ const Nav = () => {
                     </span>
                 </NavLink>
             </li>
-            <li>
-                <NavLink to='/login'>
-                    <LogoutIcon onClick= {() => dispatch(logoutRequest())}/>
-                    <span className="title">
-                        <span>Logout</span>
-                    </span>
-                </NavLink>
-            </li>
         </ul>
     </nav>
 };

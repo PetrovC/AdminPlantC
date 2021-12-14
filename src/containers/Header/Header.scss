@@ -1,6 +1,7 @@
 @import '../../variables';
 header {
     height: $header-height;
+    // background: aqua;
     padding: 20px 50px;
     display: flex;
     justify-content: center;
@@ -15,10 +16,14 @@ header {
         height: 70px;
     }
 }
-
+// .container_header_nom_logo_deco{
+//     display: flex;
+//     justify-content: center;
+// }
 @media screen and (min-width: 992px) {
     header {
         justify-content: flex-end;
+        // background-color: black;
         > :not(.mobile) {
             display: block;
         }
@@ -26,4 +31,21 @@ header {
             display: none;
         }
     }
+    .container_header_nom_logo_deco{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .nom_user_header{
+
+    }
+    .logo_deco_header{
+        margin-left: 0.5rem;
+        color: $green;
+        padding: 1rem;
+    }
+    .logo_deco_header svg{
+        // padding: 1rem;
+    }
+    
 }

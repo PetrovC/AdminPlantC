@@ -125,7 +125,7 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                         <Controller
                             name="fonction"
                             control={control}
-                            render={({ field }) => <FonctionParticipant  {...field} />}
+                            render={({ field }) => <FonctionParticipant   {...field} />}
                         />
                     </div>
                     <div className="form-group" >
@@ -133,7 +133,6 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                             control={control}
                             render={({ field }) =>
                                 <TextField {...field}
-                                    tabIndex="1"
                                     label="Nom Entreprise"
                                     required={true}
                                     fullWidth={true}
@@ -148,7 +147,6 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                             render={({ field }) =>
                                 <TextField {...field}
                                     label="BCE"
-                                    tabIndex="2"
                                     required={true}
                                     fullWidth={true}
                                     error={!!errors.bce}
@@ -165,7 +163,6 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                                     label="Siège Social"
                                     multiline={true}
                                     required={true}
-                                    tabIndex="3"
                                     rows={2}
                                     fullWidth={true}
                                     error={!!errors.siegeSocial}
@@ -179,14 +176,14 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                 </div>
             </div>
             <div className="container_form_email_nom">
-                <div className="nom_email_block">
+                <div className="nom_prenom_block">
                     <div className="form-group">
-                        <Controller name="nom"
+                        <Controller 
+                            name="nom"
                             control={control}
                             render={({ field }) =>
                                 <TextField {...field}
                                     label="Nom"
-                                    tabIndex="4"
                                     required={true}
                                     fullWidth={true}
                                     error={!!errors.nom}
@@ -195,34 +192,34 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                             } />
                     </div>
                     <div className="form-group">
-                        <Controller name="email"
-                            control={control}
-                            render={({ field }) =>
-                                <TextField {...field}
-                                    label="Email"
-                                    tabIndex="6"
-                                    fullWidth={true}
-                                    required={true}
-                                    error={!!errors.email}
-                                    helperText={!!errors.email && errors.email.message}
-                                />
-                            } />
-                    </div>
-                    
-                </div>
-                <div className="num_prenom_block">
-                <div className="form-group">
                         <Controller name="prenom"
                             control={control}
                             render={({ field }) =>
                                 <TextField {...field}
                                     label="Prénom"
-                                    tabIndex="5"
                                     required={true}
                                     fullWidth={true}
                                     error={!!errors.prenom}
                                     helperText={!!errors.prenom && errors.prenom.message} />
 
+                            } />
+                    </div>
+                    
+                    
+                </div>
+                <div className="num_email_block">
+                <div className="form-group">
+                        
+                        <Controller name="email"
+                            control={control}
+                            render={({ field }) =>
+                                <TextField {...field}
+                                    label="Email"
+                                    fullWidth={true}
+                                    required={true}
+                                    error={!!errors.email}
+                                    helperText={!!errors.email && errors.email.message}
+                                />
                             } />
                     </div>
                     
@@ -232,7 +229,6 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                             render={({ field }) =>
                                 <TextField {...field}
                                     label="Numéro Tel"
-                                    tabIndex="7"
                                     fullWidth={true}
                                     required={true}
                                     error={!!errors.numTel}

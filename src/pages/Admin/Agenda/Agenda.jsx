@@ -71,25 +71,25 @@ const Agenda = () =>
     return (
         <>
             <AddMissionButton onClick={handleOnClick} />
-            <h1 className="title">Agenda</h1>
-                <span>
-                <Select
-                    fullWidth={true}
-                    multiple
-                    value={fonctions}
-                    onChange={handleChange}
-                    renderValue={(selected) => selected.join(', ')}
-                >
-                    <MenuItem value="planteur">
-                        <Checkbox checked={fonctions.indexOf('planteur') > -1} />
-                        <ListItemText primary="planteur" />
-                    </MenuItem>
-                    <MenuItem value="agriculteur">
-                        <Checkbox checked={fonctions.indexOf('agriculteur') > -1} />
-                        <ListItemText primary="agriculteur" />
-                    </MenuItem>
-                </Select>
-                </span>
+                <div className="container_btn_agri_plant">
+                    <Select
+                    
+                        fullWidth={true}
+                        multiple
+                        value={fonctions}
+                        onChange={handleChange}
+                        renderValue={(selected) => selected.join(', ')}
+                    >
+                        <MenuItem value="planteur">
+                            <Checkbox checked={fonctions.indexOf('planteur') > -1} />
+                            <ListItemText primary="planteur" />
+                        </MenuItem>
+                        <MenuItem value="agriculteur">
+                            <Checkbox checked={fonctions.indexOf('agriculteur') > -1} />
+                            <ListItemText primary="agriculteur" />
+                        </MenuItem>
+                    </Select>
+                </div>
             <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true}>
                 <MissionForm onSuccess={handleOnSuccess}/>
             </Dialog>

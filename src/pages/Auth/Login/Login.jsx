@@ -24,19 +24,21 @@ const Login = () => {
 
     return (
         <main className="auth">
-            <Card variant="outlined">
-                <form onSubmit={ login }>  
-                    <div>
-                        <TextField type="email" label="Email" variant="outlined" />
-                    </div>
-                    <div>
-                        <TextField type="password" label="Mot de passe" variant="outlined" />
-                    </div>
-                    <div className="f-end">
-                        <Button type="submit" color="primary">Se connecter</Button>
-                    </div>
-                </form>            
-            </Card>
+            <h1 className="titre_login">Se Connecter</h1>
+            <form className="block_form" onSubmit={ login }>  
+                <div className="block_email">
+                    <TextField fullWidth={true} type="email" label="Email" variant="outlined" />
+                </div>
+                <div className="block_mdp">
+                    <TextField fullWidth={true} type="password" label="Mot de passe" variant="outlined" />
+                </div>
+                <div className="block_btn">
+                    <Button type="submit" color="primary">Se connecter</Button>
+                </div>
+            </form>   
+            <div className="image_login">
+                <img src="assets/img/arbreForm.png" alt="logo arbre" />
+            </div>
         </main>
     );
 };

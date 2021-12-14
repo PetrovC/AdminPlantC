@@ -1,1 +1,30 @@
 @import '../../../variables';
+
+
+
+
+
+.css-1rgtsqx-MuiInputBase-root-MuiOutlinedInput-root{
+    width: none;
+}
+@media screen and (min-width: 992px) {
+    .container_btn_agri_plant{
+        width: 25vw;
+        margin:1rem  auto;
+    }
+    .css-1rgtsqx-MuiInputBase-root-MuiOutlinedInput-root{
+        width: none;
+    }
+    // .btn_agri_agenda ,.btn_planteur_agenda{
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     border: none;
+    //     border-radius: 5px;
+    //     padding: 0.2rem 1rem;
+    //     margin: 1rem;
+    // }
+    // .btn_planteur_agenda{
+
+    // }
+}
