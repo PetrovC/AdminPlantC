@@ -1,11 +1,20 @@
 @import '../../variables';
+.form-group {
+margin-bottom: 12px;
+//background-color: rgb(174, 224, 193);
+border-collapse: collapse;}
 
-
-    
-    .form-group {
-        padding: 20px;
-        margin: 1rem 0;
-        // &:last-child {
-        //     text-align: right;
-        // }
+.form-group.flex-50 {
+    display: flex;
+    justify-content: space-between;
+    >.MuiFormControl-root {
+        //background-color: rgb(174, 224, 193);
+        flex: 1;
+        &:first-child {
+            margin-right: 5px;
+        }
+        &:last-child {
+            margin-left: 5px;
+        }
     }
+}

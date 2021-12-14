@@ -1,7 +1,7 @@
 import { MenuItem, Select } from "@mui/material";
 import { forwardRef } from "react";
 import { useSelector } from "react-redux";
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 
 const ParticipantsSelect = forwardRef((props, ref) => {

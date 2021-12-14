@@ -27,7 +27,7 @@ export const participantsSlice = createSlice({
     },
 })
 
-export const { loadParticipants } = participantsSlice.actions;
+export const { loadParticipants, addParticipant } = participantsSlice.actions;
 
 export default participantsSlice.reducer;
 
