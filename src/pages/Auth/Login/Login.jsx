@@ -24,6 +24,9 @@ const Login = () => {
 
     return (
         <main className="auth">
+            <div className="logo_plantC">
+                <img src="assets/img/PlantC.png" alt="logo" />
+            </div>
             <h1 className="titre_login">Se Connecter</h1>
             <form className="block_form" onSubmit={ login }>  
                 <div className="block_email">
