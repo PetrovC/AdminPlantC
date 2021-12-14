@@ -11,7 +11,7 @@ import './Nav.scss';
 const Nav = () => {
     const dispatch = useDispatch()
     return <nav>
-        <div className="logo_plantC">
+        <div className="logo_plantC_Nav">
             <img src="assets/img/PlantC.png" alt="logo" />
         </div>
         <ul>

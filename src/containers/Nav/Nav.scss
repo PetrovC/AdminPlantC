@@ -29,7 +29,7 @@ nav {
             }
         }
     }
-    > .logo_plantC{
+    > .logo_plantC_Nav{
         display: none;
     }
 }
@@ -98,7 +98,7 @@ nav {
         background-color: $light-grey;
         min-height: 100vh;
         box-shadow: 5px 5px 20px 5px gray;
-        > .logo_plantC{
+        > .logo_plantC_Nav{
             width: 6rem;
             height: 6rem;
             margin: 2rem auto;
