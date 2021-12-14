@@ -14,6 +14,7 @@ import ParticipantsSelect from '../ParticipantsSelect/ParticipantsSelect';
 import { Box } from '@mui/system';
 import { showToast, askConfirmation } from '../../store/interactionsSlice';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
+import ProjetsSelect from '../ProjetsSelect/ProjetsSelect';
 
 const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
@@ -36,6 +37,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
     const mission = useSelector(state => state.missions.selectedMission);
     const participants = useSelector(state => state.participants.list);
+    const projets = useSelector(state => state.projets.list)
 
     const types = ['Tondre', 'Arroser', 'Planter', 'Elaguer'];
 
@@ -43,6 +45,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         type: '',
         description: '',
         participantId: '',
+        projetId: '',
         dates: [moment().startOf('day'), moment().startOf('day')]
     };
 
@@ -75,6 +78,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         const cleanData= {
             ...data,
             participant: participants.find(p => p.id === data.participantId),
+            projet: projets.find(p => p.id === data.projetId),
             startDate: formatDate(data.dates[0]), 
             endDate: formatDate(data.dates[1] ?? data.dates[0]),
             dates: null
@@ -162,6 +166,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                         <Controller name="participantId"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
+                                    />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="projetId"
+                                    control={control}
+                                    render={({field}) => <ProjetsSelect {...field} />}
                                     />
                     </div>
                     <div className="form-group">

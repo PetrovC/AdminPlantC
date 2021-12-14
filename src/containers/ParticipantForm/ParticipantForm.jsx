@@ -120,7 +120,7 @@ const ParticipantForm = () => {
                                     error={!!errors.nomEntreprise}
                                     helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
 
-                    } /></div>
+                            } /></div>
 
                     <div className="form-group">
                         <Controller name="bce"
@@ -174,55 +174,55 @@ const ParticipantForm = () => {
 
                             } />
                     </div>
-                    <div className="form-group">
-                        <Controller name="email"
-                            control={control}
-                            render={({ field }) =>
-                                <TextField {...field}
-                                    label="Email"
-                                    tabIndex="6"
-                                    fullWidth={true}
-                                    required={true}
-                                    error={!!errors.email}
-                                    helperText={!!errors.email && errors.email.message}
-                                />
-                            } />
-                    </div>
-                    
                 </div>
-                <div className="num_prenom_block">
                 <div className="form-group">
-                        <Controller name="prenom"
-                            control={control}
-                            render={({ field }) =>
-                                <TextField {...field}
-                                    label="Prénom"
-                                    tabIndex="5"
-                                    required={true}
-                                    fullWidth={true}
-                                    error={!!errors.prenom}
-                                    helperText={!!errors.prenom && errors.prenom.message} />
+                    <Controller name="email"
+                        control={control}
+                        render={({ field }) =>
+                            <TextField {...field}
+                                label="Email"
+                                tabIndex="6"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.email}
+                                helperText={!!errors.email && errors.email.message}
+                            />
+                        } />
+                </div>
 
-                            } />
-                    </div>
-                    
-                    <div className="form-group">
-                        <Controller name="numTel"
-                            control={control}
-                            render={({ field }) =>
-                                <TextField {...field}
-                                    label="Numéro Tel"
-                                    tabIndex="7"
-                                    fullWidth={true}
-                                    required={true}
-                                    error={!!errors.numTel}
-                                    helperText={!!errors.numTel && errors.numTel.message} />
+            </div>
+            <div className="num_prenom_block">
+                <div className="form-group">
+                    <Controller name="prenom"
+                        control={control}
+                        render={({ field }) =>
+                            <TextField {...field}
+                                label="Prénom"
+                                tabIndex="5"
+                                required={true}
+                                fullWidth={true}
+                                error={!!errors.prenom}
+                                helperText={!!errors.prenom && errors.prenom.message} />
 
-                            } />
-                    </div>
+                        } />
+                </div>
 
+                <div className="form-group">
+                    <Controller name="numTel"
+                        control={control}
+                        render={({ field }) =>
+                            <TextField {...field}
+                                label="Numéro Tel"
+                                tabIndex="7"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.numTel}
+                                helperText={!!errors.numTel && errors.numTel.message} />
+
+                        } />
                 </div>
             </div>
+
 
 
 
