@@ -23,39 +23,48 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             .string()
             .max(50, 'max 50')
             .required('Le champ est requis'),
-        dates: yup
-            .array()
-            .of(yup.date().required('Veuillez entrer 2 dates')),
         description: yup
             .string()
             .required("Le champs est requis")
-            .max(255)
+            .max(255),
+        id_Projet: yup
+            .number()
+            .required() ,
+        id_Participant: yup.
+            number()
+            .required(),
+        dates: yup
+            .array()
+            .of(yup.date()
+            .required('Veuillez entrer 2 dates')),
     });
 
+    const defaultValues = {
+            type: '',
+            description: '',
+            id_Projet: '',
+            id_Participant: '',
+            dates:[]
+            
+        };
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
     // added
-    const id = useSelector(state => state.login.id);
+    // const participant = useSelector(state => state.participant.selectParticipant);
 
     const mission = useSelector(state => state.missions.selectedMission);
 
+
     const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
 
-    const defaultValues = {
-        type: '',
-        description: '',
-        id_Projet: '',
-        id_Participant: '',
-        dates:[]
-        
-    };
+    
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
     //add id
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, id_Participant: id, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
+        reset({ ...defaultValues, ...mission, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
     }, [mission]);
 
     const onDelete = () => {
@@ -80,9 +89,11 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const onSubmit = data => {
         const cleanData= {
             ...data,
+            description: data.description,
+            id_Participant: data.id_Participant,
+            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
-            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
             dates: null
         };
 
@@ -132,7 +143,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     </div>
                 </>}
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group border_green">
+                    <div className="form-group">
                         <Controller name="type"
                                     control={control} 
                                     render={({ field }) => <Autocomplete {...field} 
@@ -152,7 +163,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     
                         } />
                     </div>
-                    <div className="form-group border_green">
+                    <div className="form-group">
                         <Controller name="description"
                                     control={control} 
                                     render={({ field }) => 
@@ -168,16 +179,10 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
                         } />
                     </div>
-                    <div className="form-group border_green">
+                    <div className="form-group">
                         <Controller name="id_Participant"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
-                                    />
-                    </div>
-                    <div className="form-group">
-                        <Controller name="id_Projet"
-                                    control={control}
-                                    render={({field}) => <ProjetsSelect {...field} />}
                                     />
                     </div>
                     <div className="form-group">

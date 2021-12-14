@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-// import {logoutRequest} from '../../authentication/logout/actionLogout';
+import {logoutRequest} from '../../authentication/logout/actionLogout';
 import './Header.scss';
 
 const Header = () => {

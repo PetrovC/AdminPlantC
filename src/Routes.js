@@ -1,5 +1,5 @@
 import Admin from "./pages/Admin/Admin";
-// import Login from "./pages/Auth/Login/Login";
+import Login from "./pages/Auth/Login/Login";
 import Agenda from "./pages/Admin/Agenda/Agenda";
 import Missions from "./pages/Admin/Missions/Missions";
 import MissionAdd from "./pages/Admin/MissionAdd/MissionAdd";
@@ -12,7 +12,7 @@ const Routes = [
         { path: 'mission-add', element: <MissionAdd /> },
         { path: 'participant-add', element: <ParticipantAdd /> },
     ] },
-    // { path: 'login', element: <Login /> }
+    { path: 'login', element: <Login /> }
 ];
 
 export default Routes;
