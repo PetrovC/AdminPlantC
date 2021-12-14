@@ -35,6 +35,8 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
+    // added
+    const id = useSelector(state => state.login.id);
 
     const mission = useSelector(state => state.missions.selectedMission);
 
@@ -51,8 +53,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
+    //add id
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
+        reset({ ...defaultValues, ...mission, id_Participant: id, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
     }, [mission]);
 
     const onDelete = () => {
