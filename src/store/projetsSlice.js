@@ -13,6 +13,6 @@ export const projetsSlice = createSlice({
     }
 })
 
-export  const loadProjets = projetsSlice.actions;
+export  const {loadProjets} = projetsSlice.actions;
 
 export default projetsSlice.reducer;

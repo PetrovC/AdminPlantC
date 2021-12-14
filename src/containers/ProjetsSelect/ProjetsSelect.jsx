@@ -7,9 +7,8 @@ const ProjetsSelect = forwardRef((props, ref) => {
 
     return (
         <Select {...props} fullWidth={true} displayEmpty={true}>
-            <MenuItem value=''>projets</MenuItem>
             {projets.map(projet => <MenuItem key={projet.id} 
-            value={projet.id}>{projet.Reference} {projet.Titre}</MenuItem>)}
+            value={projet.id}>{projet.reference} {projet.titre}</MenuItem>)}
         </Select>
     )
 })
