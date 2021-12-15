@@ -1,13 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Button } from "@mui/material";
-import {logoutRequest} from '../../authentication/logout/actionLogout';
+import { useSelector } from "react-redux";
 import './Header.scss';
 
 const Header = () => {
 
-    const dispatch = useDispatch();
-
-    const isLogged = useSelector((state) => state.login.isLogged);
+    const isLogged = useSelector((state) => state.session.isLogged);
 
     return (
         <header>
@@ -16,9 +12,6 @@ const Header = () => {
                  {/* { isLogged && <>Amaury Olivier</> } */}
                 { <>Amaury Olivier</> }
             </span>
-            <div>
-                <Button disabled={!isLogged} type="button" color="primary" onClick= {() => dispatch(logoutRequest())}>Se déconnecter</Button>
-            </div>
         </header>
     );
 };

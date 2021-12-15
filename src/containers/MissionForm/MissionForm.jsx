@@ -15,6 +15,7 @@ import ProjetsSelect from '../ProjetSelect/ProjetSelect';
 import { Box } from '@mui/system';
 import { showToast, askConfirmation } from '../../store/interactionsSlice';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
+import ProjetsSelect from '../ProjetsSelect/ProjetsSelect';
 
 const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
@@ -37,16 +38,17 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const mission = useSelector(state => state.missions.selectedMission);
+    const participants = useSelector(state => state.participants.list);
+    const projets = useSelector(state => state.projets.list)
 
     const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
 
     const defaultValues = {
         type: '',
         description: '',
-        id_Projet: '',
-        id_Participant: '',
-        dates:[]
-        
+        participantId: '',
+        projetId: '',
+        dates: [moment().startOf('day'), moment().startOf('day')]
     };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
@@ -176,6 +178,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     />
                     </div>
                     
+                    <div className="form-group">
+                        <Controller name="projetId"
+                                    control={control}
+                                    render={({field}) => <ProjetsSelect {...field} />}
+                                    />
+                    </div>
                     <div className="form-group">
                         <Controller name="dates"
                                     control={control} 
