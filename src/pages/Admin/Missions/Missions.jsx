@@ -102,8 +102,7 @@ const Missions = () => {
 
     useEffect(() => {
         setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant) || m.id_Participant === selected));
-        setProjetsMissions(missions.filter(m =>(!selected && !m.id_Projet) || m.id_Projet === selected));
-    }, [selected, missions, projetsMissions]);
+    }, [selected, missions]);
 
 
     const handleOnChange = e => {
@@ -124,12 +123,10 @@ const Missions = () => {
         <>
             <AddMissionButton onClick={handleOnClick} />
             <h1 className="title" ><span>Missions :</span><span><ParticipantsSelect value={selected} onChange={handleOnChange} /></span>
-            <span><ProjetsSelect value={selected} onChange={handleOnChange} /></span></h1>
+            {/* <span><ProjetsSelect value={selected} onChange={handleOnChange} /></span> */}
+            </h1>
             <ul className="missions fadeIn-list">
                 {participantMissions.map((mission, index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen} />)}
-            </ul>
-            <ul>
-                {projetsMissions.map((mission,index) => <Mission key={mission.id} {...mission} index={index} setOpen={setOpen}/>)}
             </ul>
             <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true}>
                 <MissionForm onSuccess={handleOnSuccess} />

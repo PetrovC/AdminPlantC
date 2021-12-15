@@ -14,26 +14,4 @@ const ParticipantAdd = () => {
     );
 };
 
-// const ParticipantAdd = () => {
-
-//     useEffect(() => {
-//         dispatch(selectParticipant(null));
-//     }, []);
-
-//     const dispatch = useDispatch();
-
-//     const navigate = useNavigate();
-
-//     const handleOnSuccess = () => {
-//         navigate('/');
-//     }
-
-//     return (
-//         <>
-//             <h1 className="title">Ajouter un participant</h1>
-//             <ParticipantForm onSuccess={handleOnSuccess} />
-//         </>
-//     );
-// };
-
-// export default ParticipantAdd;
+export default ParticipantAdd;
