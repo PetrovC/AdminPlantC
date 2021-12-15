@@ -11,10 +11,10 @@ import { addMission, updateMission, removeMission } from '../../store/missionsSl
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import ParticipantsSelect from '../ParticipantsSelect/ParticipantsSelect';
-import ProjetsSelect from '../ProjetSelect/ProjetSelect';
 import { Box } from '@mui/system';
 import { showToast, askConfirmation } from '../../store/interactionsSlice';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
+import ProjetsSelect from '../ProjetsSelect/ProjetsSelect';
 
 const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
@@ -28,7 +28,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             .of(yup.date().required('Veuillez entrer 2 dates')),
         description: yup
             .string()
-            .required("Le champs est requis")
             .max(255)
     });
 
@@ -37,28 +36,29 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const mission = useSelector(state => state.missions.selectedMission);
+    const participants = useSelector(state => state.participants.list);
+    const projets = useSelector(state => state.projets.list)
 
-    const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
+    const types = ['Tondre', 'Arroser', 'Planter', 'Elaguer'];
 
     const defaultValues = {
         type: '',
         description: '',
-        id_Projet: '',
-        id_Participant: '',
-        dates:[]
-        
+        participantId: '',
+        projetId: '',
+        dates: [moment().startOf('day'), moment().startOf('day')]
     };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
+        reset({ ...defaultValues, ...mission, dates: [mission?.startDate, mission?.endDate] });
     }, [mission]);
 
     const onDelete = () => {
         if(mission?.id) {
             setIsLoading(true);
-            axios.delete(process.env.REACT_APP_API_URL + '/api/tache/' + mission.id)
+            axios.delete(process.env.REACT_APP_API_URL + '/mission/' + mission.id)
                 .then(() => {
                     dispatch(removeMission(mission.id));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -77,9 +77,10 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const onSubmit = data => {
         const cleanData= {
             ...data,
-            date_Debut: formatDate(data.dates[0]), 
-            date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
-            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
+            participant: participants.find(p => p.id === data.participantId),
+            projet: projets.find(p => p.id === data.projetId),
+            startDate: formatDate(data.dates[0]), 
+            endDate: formatDate(data.dates[1] ?? data.dates[0]),
             dates: null
         };
 
@@ -89,7 +90,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                 id: mission.id
             };
             setIsLoading(true);
-            axios.put(process.env.REACT_APP_API_URL + '/api/tache/' , updatedMission)
+            axios.put(process.env.REACT_APP_API_URL + '/mission/' + updatedMission.id, updatedMission)
                 .then(() => {
                     dispatch(updateMission(updatedMission));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -103,9 +104,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         }
         else {
             setIsLoading(true);
-            axios.post(process.env.REACT_APP_API_URL + '/api/tache', cleanData)
+            axios.post(process.env.REACT_APP_API_URL + '/mission', cleanData)
                 .then(({data}) => {
-                    dispatch(addMission({...cleanData, id: data}));
+                    dispatch(addMission({...cleanData, id: data.id}));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
                     onSuccess();
                 })
@@ -153,7 +154,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     render={({ field }) => 
                                             <TextField {...field}
                                                 label="Description"
-                                                required={true}
                                                 multiline={true}
                                                 fullWidth={true}
                                                 rows={3}
@@ -163,13 +163,13 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                         } />
                     </div>
                     <div className="form-group">
-                        <Controller name="id_Participant"
+                        <Controller name="participantId"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
                                     />
                     </div>
                     <div className="form-group">
-                        <Controller name="id_Projet"
+                        <Controller name="projetId"
                                     control={control}
                                     render={({field}) => <ProjetsSelect {...field} />}
                                     />
