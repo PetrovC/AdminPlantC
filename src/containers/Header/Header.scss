@@ -4,26 +4,35 @@ header {
     // background: aqua;
     padding: 20px 50px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     font-family: $font-title;
     color: $green;
     font-size: 30px;
     font-weight: bolder;
-    > :not(.mobile) {
-        display: none;
-    }
     .logo {
         height: 70px;
     }
 }
-// .container_header_nom_logo_deco{
-//     display: flex;
-//     justify-content: center;
-// }
+.container_header_nom_logo_deco{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.nom_user_header{
+    display: none;
+}
+.logo_deco_header{
+    display: flex;
+    margin-left: 0.5rem;
+    color: $green;
+    padding: 1rem;
+}
+
+
+
 @media screen and (min-width: 992px) {
     header {
         justify-content: flex-end;
-        // background-color: black;
         > :not(.mobile) {
             display: block;
         }
@@ -34,18 +43,15 @@ header {
     .container_header_nom_logo_deco{
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: center;
     }
     .nom_user_header{
-
+        display: flex;
     }
     .logo_deco_header{
+        display: flex;
         margin-left: 0.5rem;
         color: $green;
         padding: 1rem;
     }
-    .logo_deco_header svg{
-        // padding: 1rem;
-    }
-    
 }

@@ -3,11 +3,48 @@
 
 
 
-
+.dates .date{
+    font-size: 18px;
+}
 .css-1rgtsqx-MuiInputBase-root-MuiOutlinedInput-root{
     width: none;
 }
+.container_btn_agri_plant{
+    width: 25vw;
+    margin: 1rem auto;
+}
+.dates .date.right-button::before,.dates .date.left-button::before{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1rem;
+}
+.dates .date.right-button:hover::before , .dates .date.left-button:hover::before{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1rem;
+}
+.dates .date.right-button::before{
+    right: -20px;
+    content: '\f101';
+}
+.dates .date.left-button::before {
+    left: -20px;
+    content: '\f100';
+}
+.dates .date.right-button:hover::before{
+    right: -20px;
+    content: '\f101';
+}
+.dates .date.left-button:hover::before{
+    left: -20px;
+    content: '\f100';
+}
 @media screen and (min-width: 992px) {
+    .dates .date{
+        font-size: 20px;
+    }
     .container_btn_agri_plant{
         width: 25vw;
         margin:1rem  auto;
@@ -15,6 +52,36 @@
     .css-1rgtsqx-MuiInputBase-root-MuiOutlinedInput-root{
         width: none;
     }
+    .dates .date.right-button::before,.dates .date.left-button::before{
+        position: absolute;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 1rem;
+    }
+    .dates .date.right-button::before{
+        right: 0px;
+        content: '\f101';
+
+    }
+    .dates .date.left-button::before {
+        left: 0px;
+        content: '\f100';
+    }
+    .dates .date.right-button:hover::before , .dates .date.left-button:hover::before{
+        position: absolute;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 1rem;
+    }
+    .dates .date.right-button:hover::before{
+        right: -10px;
+        content: '\f101';
+    }
+    .dates .date.left-button:hover::before{
+        left: -10px;
+        content: '\f100';
+    }
+
     // .btn_agri_agenda ,.btn_planteur_agenda{
     //     display: flex;
     //     justify-content: center;

@@ -14,7 +14,7 @@ const Header = () => {
     return (
         <header>
             <img src="assets/img/PlantC.png" alt="logo" className="logo mobile" />
-            <span>
+            <span className="block_user_deco">
                  {/* { isLogged && <>Amaury Olivier</> } */}
                 {   
                 <div className="container_header_nom_logo_deco">
@@ -22,7 +22,7 @@ const Header = () => {
                         <span>Amaury Olivier</span>
                     </span>
                     <NavLink to='/login' className="logo_deco_header">
-                        <LogoutIcon onClick= {() => dispatch(logoutRequest())}/>
+                        <LogoutIcon style={{fontSize: 1.2+"em"}} onClick= {() => dispatch(logoutRequest())}/>
                     </NavLink>
                 </div>
                 }
