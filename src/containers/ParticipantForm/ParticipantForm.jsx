@@ -49,7 +49,7 @@ const ParticipantForm = () => {
             .max(255, 'max 255')
             .required('le champs est requis'),
         bce: yup
-            .number()
+            .string()
             .required('le champs est requis'),
 
     })
@@ -73,7 +73,7 @@ const ParticipantForm = () => {
     const dataSend = data => {
         const cleanData = {
             ...data,
-            fonction: data.fonction,
+            fonction: parseInt(data.fonction),
             nomEntreprise: data.nomEntreprise,
             siegeSocial: data.siegeSocial,
             nom: data.nom,
@@ -84,7 +84,7 @@ const ParticipantForm = () => {
         }
         setIsLoading(true);
         // api envoie post
-        axios.post(process.env.REACT_APP_API_URL + '/participant', cleanData)
+        axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
             .then(({data}) => {
                 dispatch(addParticipant({ ...cleanData, id: data.id }));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));

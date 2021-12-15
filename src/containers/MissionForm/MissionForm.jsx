@@ -52,13 +52,13 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, dates: [mission?.startDate, mission?.endDate] });
+        reset({ ...defaultValues, ...mission, participantId: mission?.id_Participant, projetId: mission?.id_Projet, dates: [mission?.date_Debut, mission?.date_Fin] });
     }, [mission]);
 
     const onDelete = () => {
         if(mission?.id) {
             setIsLoading(true);
-            axios.delete(process.env.REACT_APP_API_URL + '/mission/' + mission.id)
+            axios.delete(process.env.REACT_APP_API_URL + '/api/tache/' + mission.id)
                 .then(() => {
                     dispatch(removeMission(mission.id));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -75,12 +75,14 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const formatDate = (date) => moment(date).format('YYYY-MM-DD');
 
     const onSubmit = data => {
+
+        console.log(data)
         const cleanData= {
             ...data,
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
-            id_Projet: data.id_Projet.id, //rajouter dans le formulaire ultérieurement
-            id_Participant: data.id_Participant,
+            id_Projet: data.projetId, //rajouter dans le formulaire ultérieurement
+            id_Participant: data.participantId,
             dates: null
         };
 
@@ -90,7 +92,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                 id: mission.id
             };
             setIsLoading(true);
-            axios.put(process.env.REACT_APP_API_URL + '/mission/' + updatedMission.id, updatedMission)
+            axios.put(process.env.REACT_APP_API_URL + '/api/tache/', updatedMission)
                 .then(() => {
                     dispatch(updateMission(updatedMission));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -104,9 +106,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         }
         else {
             setIsLoading(true);
-            axios.post(process.env.REACT_APP_API_URL + '/mission', cleanData)
+            axios.post(process.env.REACT_APP_API_URL + '/api/tache', cleanData)
                 .then(({data}) => {
-                    dispatch(addMission({...cleanData, id: data.id}));
+                    dispatch(addMission({...cleanData, id: data}));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
                     onSuccess();
                 })
@@ -130,12 +132,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     </div>
                 </>}
                 <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group">
-                        <Controller name="id_Projet"
-                                    control={control}
-                                    render={({field}) => <ProjetsSelect {...field} />}
-                                    />
-                    </div>
                     <div className="form-group">
                         <Controller name="type"
                                     control={control} 

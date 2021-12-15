@@ -26,9 +26,9 @@ const Admin = () => {
         /*probleme a regler*/
             .then(({ data }) => {dispatch(loadProjets(data))})
             .catch();
-        axios.get(process.env.REACT_APP_API_URL + '/projet')
-            .then(({data}) => dispatch(loadProjets(data)))
-            .catch();
+        // axios.get(process.env.REACT_APP_API_URL + '/projet')
+        //     .then(({data}) => dispatch(loadProjets(data)))
+        //     .catch();
     }, []);
 
     return (

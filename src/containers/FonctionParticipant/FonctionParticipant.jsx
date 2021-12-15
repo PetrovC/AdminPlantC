@@ -3,7 +3,13 @@ import React,{forwardRef, useState} from 'react'
 
 const FonctionParticipant = forwardRef((props, ref) =>{
 
-    const [participants,setParticipants] = useState(["Citoyen", "Agriculteur", "Planteur"]);
+    const [participants,setParticipants] = useState([
+        "Citoyen",
+        "Entreprise",
+        "Beneficiaire",
+        "Agriculteur",
+        "Planteur"
+    ]);
     
 
     return (
@@ -15,7 +21,7 @@ const FonctionParticipant = forwardRef((props, ref) =>{
             displayEmpty={true} 
         >
             {/* <MenuItem value="rien"> Pas De Fonction </MenuItem> */}
-            {participants.map((participant,index)=><MenuItem key={index+"_"+participant} value={participant}>
+            {participants.map((participant,index)=><MenuItem key={index+"_"+participant} value={index}>
                 {participant}
             </MenuItem>)
             }
