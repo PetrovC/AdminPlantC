@@ -6,7 +6,7 @@ const ProjetsSelect = forwardRef((props, ref) => {
 
     const projets = useSelector(state => {
         // fonctionne
-      console.log("projetSelect state =>",state.projets.list);
+        // console.log("projetSelect state =>",state.projets.list);
         return state.projets.list;
     });
 

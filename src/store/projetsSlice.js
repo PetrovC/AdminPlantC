@@ -8,21 +8,21 @@ export const projetsSlice = createSlice({
         list: [{}]
     },
     reducers: {
-        loadProjet: (state, {payload}) =>  {
+        loadProjets: (state, {payload}) =>  {
             state.list = payload
         },
-        addProjet: (state, {payload}) => {
+        addProjets: (state, {payload}) => {
             state.list = [...state.list, payload];
         },
-        removeProjet: (state, {payload}) => {
+        removeProjets: (state, {payload}) => {
             state.list = state.list.filter(ev => ev.id !== payload);
         },
-        updateProjet: (state, {payload}) => {
+        updateProjets: (state, {payload}) => {
             const toUpdate = state.list.find(ev => ev.id === payload.id);
             Object.assign(toUpdate, payload);
             state.list = [...state.list]
         },
-        selectProjet: (state, {payload}) => {
+        selectProjets: (state, {payload}) => {
             state.selectedMission = { ...payload }
         }
     },
