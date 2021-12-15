@@ -24,14 +24,11 @@ const Admin = () => {
             .catch();
         axios.get(process.env.REACT_APP_API_URL + '/api/projet/resume/all')
         /*probleme a regler*/
-            .then(({data}) => {
-                // console.log("data admin =>",data)
-                // console.log("teste => data map",data)
-                // dispatch(loadProjets(data))
-                })
-                
-            
+            .then(({ data }) => {dispatch(loadProjets(data))})
             .catch();
+        // axios.get(process.env.REACT_APP_API_URL + '/projet')
+        //     .then(({data}) => dispatch(loadProjets(data)))
+        //     .catch();
     }, []);
 
     return (

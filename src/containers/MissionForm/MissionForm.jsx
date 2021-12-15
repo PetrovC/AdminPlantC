@@ -11,10 +11,10 @@ import { addMission, updateMission, removeMission } from '../../store/missionsSl
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import ParticipantsSelect from '../ParticipantsSelect/ParticipantsSelect';
-import ProjetsSelect from '../ProjetSelect/ProjetSelect';
 import { Box } from '@mui/system';
 import { showToast, askConfirmation } from '../../store/interactionsSlice';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
+import ProjetsSelect from '../ProjetsSelect/ProjetsSelect';
 
 const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
@@ -54,17 +54,25 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     // const participant = useSelector(state => state.participant.selectParticipant);
 
     const mission = useSelector(state => state.missions.selectedMission);
+    const participants = useSelector(state => state.participants.list);
+    const projets = useSelector(state => state.projets.list)
 
 
     const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
 
-    
+    const defaultValues = {
+        type: '',
+        description: '',
+        participantId: '',
+        projetId: '',
+        dates: [moment().startOf('day'), moment().startOf('day')]
+    };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
     //add id
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, dates: [mission?.date_Debut??moment().format('YYYY-MM-DD'), mission?.date_Fin??moment().format('YYYY-MM-DD')] });
+        reset({ ...defaultValues, ...mission, participantId: mission?.id_Participant, projetId: mission?.id_Projet, dates: [mission?.date_Debut, mission?.date_Fin] });
     }, [mission]);
 
     const onDelete = () => {
@@ -87,13 +95,15 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const formatDate = (date) => moment(date).format('YYYY-MM-DD');
 
     const onSubmit = data => {
+
+        console.log(data)
         const cleanData= {
             ...data,
             description: data.description,
-            id_Participant: data.id_Participant,
-            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
+            id_Projet: data.projetId, //rajouter dans le formulaire ultérieurement
+            id_Participant: data.participantId ?? null,
             dates: null
         };
 
@@ -103,7 +113,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                 id: mission.id
             };
             setIsLoading(true);
-            axios.put(process.env.REACT_APP_API_URL + '/api/tache/' , updatedMission)
+            axios.put(process.env.REACT_APP_API_URL + '/api/tache/', updatedMission)
                 .then(() => {
                     dispatch(updateMission(updatedMission));
                     dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -170,7 +180,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                             <TextField {...field}
                                                 color="success"
                                                 label="Description"
-                                                required={true}
                                                 multiline={true}
                                                 fullWidth={true}
                                                 rows={3}
@@ -180,13 +189,14 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                         } />
                     </div>
                     <div className="form-group">
-                        <Controller name="id_Participant"
+                        <Controller name="participantId"
                                     control={control}
                                     render={({field}) => <ParticipantsSelect {...field} />}
                                     />
                     </div>
+                    
                     <div className="form-group">
-                        <Controller name="id_Projet"
+                        <Controller name="projetId"
                                     control={control}
                                     render={({field}) => <ProjetsSelect {...field} />}
                                     />

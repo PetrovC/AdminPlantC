@@ -1,7 +1,7 @@
 import { MenuItem, Select } from "@mui/material";
 import { forwardRef } from "react";
 import { useSelector } from "react-redux";
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 
 const ParticipantsSelect = forwardRef((props, ref) => {
@@ -12,7 +12,7 @@ const ParticipantsSelect = forwardRef((props, ref) => {
 
     return (
         <Select {...props} fullWidth={true} displayEmpty={true}>
-            <MenuItem value={undefined}>Non assignée</MenuItem>
+            <MenuItem value={''}>Non assignée</MenuItem>
             {participants.map(participant => <MenuItem key={participant.id} value={participant.id}>{participant.nom} {participant.prenom}</MenuItem>)}
         </Select>
     );

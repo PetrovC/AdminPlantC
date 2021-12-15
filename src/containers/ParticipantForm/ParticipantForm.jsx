@@ -3,14 +3,20 @@ import axios from "axios";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { Email } from "@mui/icons-material";
 import './ParticipantForm.scss';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
 import FonctionParticipant from "../FonctionParticipant/FonctionParticipant";
+import { addParticipant } from '../../store/participantsSlice';
+import { showToast } from "../../store/interactionsSlice";
+import { useNavigate } from 'react-router-dom';
 
-const ParticipantForm = ({ handleOnSuccess }) => {
+const ParticipantForm = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
 
     const validationSchema = yup.object({
@@ -43,8 +49,7 @@ const ParticipantForm = ({ handleOnSuccess }) => {
             .max(255, 'max 255')
             .required('le champs est requis'),
         bce: yup
-            .number()
-            .max(50, 'max 50')
+            .string()
             .required('le champs est requis'),
 
     })
@@ -60,37 +65,15 @@ const ParticipantForm = ({ handleOnSuccess }) => {
         bce: ''
     };
 
-
-    const participants = useSelector(state => state.participants.list);
-
     const { control, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues, resolver: yupResolver(validationSchema) });
 
 
     const [isLoading, setIsLoading] = useState(false);
 
-    // const onDelete = () => {
-    //     if(Participant?.id) {
-    //         setIsLoading(true);
-    //         axios.delete(process.env.REACT_APP_API_URL + '/participant/' + participant.id)
-    //             .then(() => {
-    //                 dispatch(removeParticipant(participant.id));
-    //                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
-    //                 onSuccess();
-    //             })
-    //             .catch(e => {
-    //                 dispatch(showToast({ severity: 'error', message: 'La sauvegarde a échoué' }));
-    //                 onError(e);
-    //             })
-    //             .finally(() => setIsLoading(false));
-    //     }
-    // }
-
-
     const dataSend = data => {
-        // console.log("data => ", data)
         const cleanData = {
             ...data,
-            fonction: data.fonction,
+            fonction: parseInt(data.fonction),
             nomEntreprise: data.nomEntreprise,
             siegeSocial: data.siegeSocial,
             nom: data.nom,
@@ -99,26 +82,23 @@ const ParticipantForm = ({ handleOnSuccess }) => {
             email: data.email,
             bce: data.bce
         }
-        if (participants?.id) {
-            const updatedParticipant = {
-                ...cleanData,
-                id: participants.id
-            }
-            setIsLoading(true);
-            // api envoie put
-
-        } else {
-            setIsLoading(true);
-            // api envoie post data.fonction
-        }
-
+        setIsLoading(true);
+        // api envoie post
+        axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
+            .then(({data}) => {
+                dispatch(addParticipant({ ...cleanData, id: data.id }));
+                dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
+                setIsLoading(false);
+                navigate('/');
+            })
+            .catch(() => {
+                dispatch(showToast({ severity: 'error', message: 'La sauvegarde a échoué' }));
+                setIsLoading(false);
+            });
     }
-    useEffect(() => {
-        reset({ ...defaultValues, ...participants, dates: [participants?.startDate, participants?.endDate] });
-    }, [participants]);
 
     return (
-        <form onSubmit={handleSubmit(dataSend => console.log("dataSend => ", dataSend))}>
+        <form onSubmit={handleSubmit(dataSend)}>
             <div className="container_form_image">
                 <div className="container_form">
                     <div className="form-group" >
@@ -139,7 +119,7 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                                     error={!!errors.nomEntreprise}
                                     helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
 
-                    } /></div>
+                            } /></div>
 
                     <div className="form-group">
                         <Controller name="bce"
@@ -204,11 +184,10 @@ const ParticipantForm = ({ handleOnSuccess }) => {
 
                             } />
                     </div>
-                    
-                    
                 </div>
+                
                 <div className="num_email_block">
-                <div className="form-group">
+                    <div className="form-group">
                         
                         <Controller name="email"
                             control={control}
@@ -233,12 +212,13 @@ const ParticipantForm = ({ handleOnSuccess }) => {
                                     required={true}
                                     error={!!errors.numTel}
                                     helperText={!!errors.numTel && errors.numTel.message} />
-
-                            } />
+                                } />
                     </div>
-
                 </div>
             </div>
+            
+
+
 
 
 

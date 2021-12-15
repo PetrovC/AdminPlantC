@@ -5,14 +5,15 @@ import participantsReducer from './participantsSlice';
 import interactionsReducer from './interactionsSlice';
 import projetsReducer from './projetsSlice';
 import thunkMiddleware from 'redux-thunk'
+import projetReducer from './projetsSlice'
 
 export default configureStore({
   reducer: {
     session: sessionReducer,
     missions: missionsReducer,
     participants: participantsReducer,
-    projets: projetsReducer,
-    interactions: interactionsReducer
+    interactions: interactionsReducer,
+    projets: projetReducer,
   },
   middleware: [
     thunkMiddleware
