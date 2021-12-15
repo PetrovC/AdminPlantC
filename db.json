@@ -32,29 +32,34 @@
       "closed": false
     },
     {
-      "type": "Tondre",
       "description": "",
-      "participantId": 2,
       "dates": null,
+      "type": "Tondre",
+      "participantId": 2,
+      "projetId": 2,
       "id": 5,
       "startDate": "2021-12-10",
-      "endDate": "2021-12-14",
+      "endDate": "2021-12-13",
       "participant": {
         "id": 2,
         "nom": "Ly",
         "prenom": "Khun",
         "fonction": "planteur"
       },
-      "closed": true
+      "closed": true,
+      "projet": {
+        "id": 2,
+        "titre": "P2",
+        "reference": "p002"
+      }
     },
     {
+      "id": 6,
       "type": "Nourrir diego",
       "description": "",
-      "participantId": 4,
-      "dates": null,
-      "id": 6,
       "startDate": "2021-12-05",
       "endDate": "2021-12-08",
+      "participantId": 4,
       "participant": {
         "id": 4,
         "nom": "Renaud",
@@ -78,13 +83,12 @@
       "closed": false
     },
     {
+      "id": 10,
       "type": "Elaguer",
       "description": "Description bidon",
-      "participantId": 1,
-      "dates": null,
-      "id": 10,
       "startDate": "2021-12-08",
       "endDate": "2021-12-10",
+      "participantId": 1,
       "participant": {
         "id": 1,
         "nom": "Kwapinski",
