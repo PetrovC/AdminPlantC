@@ -40,13 +40,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     });
 
     const defaultValues = {
-            type: '',
-            description: '',
-            id_Projet: '',
-            id_Participant: '',
-            dates:[]
-            
-        };
+        type: '',
+        description: '',
+        participantId: '',
+        projetId: '',
+        dates: [moment().startOf('day'), moment().startOf('day')]
+    };
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -60,13 +59,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
     const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
 
-    const defaultValues = {
-        type: '',
-        description: '',
-        participantId: '',
-        projetId: '',
-        dates: [moment().startOf('day'), moment().startOf('day')]
-    };
+    
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
