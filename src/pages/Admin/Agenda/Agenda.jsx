@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Agenda = () => 
 {
+    const fctEnum = ["Planteur","Agriculteur"];
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [week, setWeek] = useState(0);
@@ -21,7 +22,7 @@ const Agenda = () =>
 
     const datas = useSelector(state => state.missions.list);
 
-    const [fonctions, setFonctions] = useState(['planteur', 'agriculteur']);
+    const [fonctions, setFonctions] = useState([0, 1]);
 
     const handleChange = (event) => {
         const {
@@ -31,7 +32,7 @@ const Agenda = () =>
             setFonctions(typeof value === "string" ? value.split(",") : value);
         }
         else {
-            setFonctions(fonctions => [fonctions.includes('agriculteur') ? 'planteur' : 'agriculteur']);
+            setFonctions(fonctions => [fonctions.includes(1) ?  0: 1]);
         }
       };
 
@@ -79,14 +80,14 @@ const Agenda = () =>
                         multiple
                         value={fonctions}
                         onChange={handleChange}
-                        renderValue={(selected) => selected.join(', ')}
+                        renderValue={(selected) => selected.map(v => fctEnum[v]).join(', ')}
                     >
-                        <MenuItem value="planteur">
-                            <Checkbox checked={fonctions.indexOf('planteur') > -1} />
+                        <MenuItem value={0}>
+                            <Checkbox checked={fonctions.indexOf(0) > -1} />
                             <ListItemText primary="planteur" />
                         </MenuItem>
-                        <MenuItem value="agriculteur">
-                            <Checkbox checked={fonctions.indexOf('agriculteur') > -1} />
+                        <MenuItem value={1}>
+                            <Checkbox checked={fonctions.indexOf(1) > -1} />
                             <ListItemText primary="agriculteur" />
                         </MenuItem>
                     </Select>
@@ -96,7 +97,7 @@ const Agenda = () =>
             </Dialog>
 
             <div className="calendar">
-            <Calendar datas={datas.filter(m => m.participantId && fonctions.includes(m.participant.fonction))}
+            <Calendar datas={datas.filter(m => m.id_Participant && fonctions.includes(m.participant.fonction))}
                           week={week} 
                           onSwipedLeft={handleSwipedLeft}
                           onSwipedRight={handleSwipedRight}

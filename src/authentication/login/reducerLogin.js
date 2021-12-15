@@ -5,9 +5,12 @@ import jwt_decode from "jwt-decode"
 const initialStateComments = {
     isLoading: false,
     isLogged: false,
-    id: 0,
+    email: '',
     nom: '',
     prenom: '',
+    userlevel: '',
+    id: 0,
+    fonction: '',
     token: '',
     error: '',
 }
@@ -28,9 +31,12 @@ const reducerLogin = (state = initialStateComments, action) => {
                 ...state,
                 isLoading: false,
                 isLogged: true,
+                email: decodedToken.email,
+                nom: decodedToken.nom,
+                prenom: decodedToken.prenom,
+                userlevel: decodedToken.userlevel,
                 id: decodedToken.id,
-                nom: action.payload.nom,
-                prenom: action.payload.prenom,
+                fonction: decodedToken.fonction,
                 token: action.payload.token,
                 error: ''
             }
@@ -47,11 +53,14 @@ const reducerLogin = (state = initialStateComments, action) => {
                 ...state,
                 isLoading: false,
                 isLogged: false,
-                id: 0,
+                email: '',
                 nom: '',
                 prenom: '',
+                userlevel: '',
+                id: 0,
+                fonction: '',
                 token: '',
-                error: ''
+                error: '',
             }
     
         default: return state
