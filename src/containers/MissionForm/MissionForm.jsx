@@ -76,7 +76,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
     const onSubmit = data => {
 
-        console.log(data)
         const cleanData= {
             ...data,
             date_Debut: formatDate(data.dates[0]), 
@@ -167,7 +166,8 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     <div className="form-group">
                         <Controller name="participantId"
                                     control={control}
-                                    render={({field}) => <ParticipantsSelect {...field} />}
+                                    render={({field}) => <ParticipantsSelect {...field} 
+                                    />}
                                     />
                     </div>
                     

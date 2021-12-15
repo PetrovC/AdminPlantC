@@ -9,11 +9,11 @@ import { Email } from "@mui/icons-material";
 import './ParticipantForm.scss';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
 import FonctionParticipant from "../FonctionParticipant/FonctionParticipant";
-import { addParticipant } from '../../store/participantsSlice';
-import { showToast } from "../../store/interactionsSlice";
+import { addParticipant, removeParticipant, updateParticipant } from '../../store/participantsSlice';
+import { showToast, askConfirmation } from "../../store/interactionsSlice";
 import { useNavigate } from 'react-router-dom';
 
-const ParticipantForm = () => {
+const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -53,7 +53,7 @@ const ParticipantForm = () => {
             .required('le champs est requis'),
 
     })
-
+    
     const defaultValues = {
         fonction: '',
         nomEntreprise: '',
@@ -69,6 +69,26 @@ const ParticipantForm = () => {
 
 
     const [isLoading, setIsLoading] = useState(false);
+    const participant = useSelector(state => state.participants.selectedParticipant)
+
+    useEffect(() => {
+        reset({...defaultValues, ...participant})  
+    }, [participant])
+
+    const onDelete =() => {
+        if(participant?.id){
+            setIsLoading(true);
+            axios.delete(process.env.REACT_APP_API_URL+ '/api/Participant/' + participant.id)
+            .then(()=> {
+                dispatch(removeParticipant(participant.id));
+                dispatch(showToast({severity: 'success', message: 'La sauvegarde a réussi' }));
+                onSuccess();
+            }).catch(e => {
+                dispatch(showToast({severity: 'error', message :'La sauvegarde a échoué'}));
+                onError(e);
+            }).finally(() => setIsLoading(false));
+        }
+    }
 
     const dataSend = data => {
         const cleanData = {
@@ -82,22 +102,52 @@ const ParticipantForm = () => {
             email: data.email,
             bce: data.bce
         }
-        setIsLoading(true);
-        // api envoie post
-        axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
+        if(participant?.id){
+            const updatedParticipant ={
+                ...cleanData,
+                id : participant.id
+            };
+            setIsLoading(true);
+            axios.put(process.env.REACT_APP_API_URL + '/api/Participant/' + updatedParticipant.id, updatedParticipant).then(() => {
+                dispatch(updateParticipant(updatedParticipant));
+                dispatch(showToast({severity: 'success', message: 'La sauvegarde a réussi'}));
+                onSuccess();
+            }).catch(e => {
+                dispatch(showToast({ severity: 'error', message: 'La sauvegarde a échoué' }));
+                    onError(e);
+            }).finally(() => setIsLoading(false));
+        }
+        else{
+
+            setIsLoading(true);
+            // api envoie post
+            axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
             .then(({data}) => {
                 dispatch(addParticipant({ ...cleanData, id: data.id }));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
                 setIsLoading(false);
-                navigate('/');
+                onSuccess();
             })
             .catch(() => {
                 dispatch(showToast({ severity: 'error', message: 'La sauvegarde a échoué' }));
                 setIsLoading(false);
-            });
+            }).finally(() => setIsLoading(false));
+        }
     }
 
     return (
+        <>
+        <div className="card">
+            {participant?.id && <>
+            <div className="deleteButton">
+            <Button color="error" onClick={() => dispatch(askConfirmation({
+                            title: 'Confirmation',
+                            content: 'Êtes-vous sûr de vouloir supprimer cette mission ?',
+                            handler: onDelete
+                        }))}>Supprimer</Button>
+            </div>
+            </>
+            }
         <form onSubmit={handleSubmit(dataSend)}>
             <div className="container_form_image">
                 <div className="container_form">
@@ -106,43 +156,43 @@ const ParticipantForm = () => {
                             name="fonction"
                             control={control}
                             render={({ field }) => <FonctionParticipant  {...field} />}
-                        />
+                            />
                     </div>
                     <div className="form-group" >
                         <Controller name="nomEntreprise"
                             control={control}
                             render={({ field }) =>
-                                <TextField {...field}
-                                    tabIndex="1"
-                                    label="Nom Entreprise"
-                                    required={true}
-                                    fullWidth={true}
-                                    error={!!errors.nomEntreprise}
-                                    helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
-
-                            } /></div>
+                            <TextField {...field}
+                            tabIndex="1"
+                            label="Nom Entreprise"
+                            required={true}
+                            fullWidth={true}
+                            error={!!errors.nomEntreprise}
+                            helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
+                            
+                        } /></div>
 
                     <div className="form-group">
                         <Controller name="bce"
                             control={control}
                             render={({ field }) =>
-                                <TextField {...field}
-                                    label="BCE"
-                                    tabIndex="2"
-                                    required={true}
-                                    fullWidth={true}
-                                    error={!!errors.bce}
-                                    helperText={!!errors.bce && errors.bce.message} />
-
-                            } />
+                            <TextField {...field}
+                            label="BCE"
+                            tabIndex="2"
+                            required={true}
+                            fullWidth={true}
+                            error={!!errors.bce}
+                            helperText={!!errors.bce && errors.bce.message} />
+                            
+                        } />
                     </div>
 
                     <div className="form-group">
                         <Controller name="siegeSocial"
                             control={control}
                             render={({ field }) =>
-                                <TextField {...field}
-                                    label="Siège Social"
+                            <TextField {...field}
+                            label="Siège Social"
                                     multiline={true}
                                     required={true}
                                     tabIndex="3"
@@ -150,8 +200,8 @@ const ParticipantForm = () => {
                                     fullWidth={true}
                                     error={!!errors.siegeSocial}
                                     helperText={!!errors.siegeSocial && errors.siegeSocial.message} />
-
-                            } />
+                                    
+                                } />
                     </div>
                 </div>
                 <div className="image">
@@ -164,14 +214,14 @@ const ParticipantForm = () => {
                         <Controller name="nom"
                             control={control}
                             render={({ field }) =>
-                                <TextField {...field}
-                                    label="Nom"
-                                    tabIndex="4"
-                                    required={true}
-                                    fullWidth={true}
-                                    error={!!errors.nom}
-                                    helperText={!!errors.nom && errors.nom.message} />
-
+                            <TextField {...field}
+                            label="Nom"
+                            tabIndex="4"
+                            required={true}
+                            fullWidth={true}
+                            error={!!errors.nom}
+                            helperText={!!errors.nom && errors.nom.message} />
+                            
                             } />
                     </div>
                 </div>
@@ -179,15 +229,15 @@ const ParticipantForm = () => {
                     <Controller name="email"
                         control={control}
                         render={({ field }) =>
-                            <TextField {...field}
-                                label="Email"
-                                tabIndex="6"
-                                fullWidth={true}
-                                required={true}
-                                error={!!errors.email}
-                                helperText={!!errors.email && errors.email.message}
-                            />
-                        } />
+                        <TextField {...field}
+                        label="Email"
+                        tabIndex="6"
+                        fullWidth={true}
+                        required={true}
+                        error={!!errors.email}
+                        helperText={!!errors.email && errors.email.message}
+                        />
+                    } />
                 </div>
 
             </div>
@@ -196,43 +246,39 @@ const ParticipantForm = () => {
                     <Controller name="prenom"
                         control={control}
                         render={({ field }) =>
-                            <TextField {...field}
-                                label="Prénom"
-                                tabIndex="5"
-                                required={true}
-                                fullWidth={true}
-                                error={!!errors.prenom}
+                        <TextField {...field}
+                        label="Prénom"
+                        tabIndex="5"
+                        required={true}
+                        fullWidth={true}
+                        error={!!errors.prenom}
                                 helperText={!!errors.prenom && errors.prenom.message} />
-
-                        } />
+                                
+                            } />
                 </div>
 
                 <div className="form-group">
                     <Controller name="numTel"
                         control={control}
                         render={({ field }) =>
-                            <TextField {...field}
-                                label="Numéro Tel"
-                                tabIndex="7"
-                                fullWidth={true}
-                                required={true}
-                                error={!!errors.numTel}
-                                helperText={!!errors.numTel && errors.numTel.message} />
-
-                        } />
+                        <TextField {...field}
+                        label="Numéro Tel"
+                        tabIndex="7"
+                        fullWidth={true}
+                        required={true}
+                        error={!!errors.numTel}
+                        helperText={!!errors.numTel && errors.numTel.message} />
+                        
+                    } />
                 </div>
             </div>
-
-
-
-
-
             <div className="form-group btn_valider_participant">
                 <PCLoadingButton disabled={isLoading} type="submit" variant="contained">Valider</PCLoadingButton>
             </div>
         </form>
+    </div>
 
-
+</>
     )
 }
 

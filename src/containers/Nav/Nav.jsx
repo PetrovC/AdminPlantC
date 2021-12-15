@@ -35,7 +35,7 @@ const Nav = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink to='/participant-add'>
+                <NavLink to='/participant-list'>
                     <PersonAddAltIcon />
                     <span className="title">
                         <span>Ajouter</span>
