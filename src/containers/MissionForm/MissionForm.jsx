@@ -77,10 +77,10 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     const onSubmit = data => {
         const cleanData= {
             ...data,
-            participant: participants.find(p => p.id === data.participantId),
-            projet: projets.find(p => p.id === data.projetId),
-            startDate: formatDate(data.dates[0]), 
-            endDate: formatDate(data.dates[1] ?? data.dates[0]),
+            date_Debut: formatDate(data.dates[0]), 
+            date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
+            id_Projet: data.id_Projet.id, //rajouter dans le formulaire ultérieurement
+            id_Participant: data.id_Participant,
             dates: null
         };
 
@@ -130,6 +130,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     </div>
                 </>}
                 <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-group">
+                        <Controller name="id_Projet"
+                                    control={control}
+                                    render={({field}) => <ProjetsSelect {...field} />}
+                                    />
+                    </div>
                     <div className="form-group">
                         <Controller name="type"
                                     control={control} 
@@ -168,6 +174,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     render={({field}) => <ParticipantsSelect {...field} />}
                                     />
                     </div>
+                    
                     <div className="form-group">
                         <Controller name="projetId"
                                     control={control}
