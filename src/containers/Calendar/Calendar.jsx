@@ -68,8 +68,7 @@ const  CalendarGroup = (props) => {
 
     const getLabel = (missions) => {
         if(missions.length)
-            return 'KL';
-            //return missions[0].participant.prenom.slice(0,1) + missions[0].participant.nom.slice(0,1);
+            return missions[0].participant.prenom.slice(0,1) + missions[0].participant.nom.slice(0,1);
     }
 
     return (

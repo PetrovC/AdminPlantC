@@ -94,7 +94,7 @@ const Missions = () => {
 
     const dispatch = useDispatch();
 
-    const [selected, setSelected] = useState(undefined);
+    const [selected, setSelected] = useState('');
     const [open, setOpen] = useState(false);
 
     const [participantMissions, setParticipantMissions] = useState([]);

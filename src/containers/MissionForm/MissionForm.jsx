@@ -82,7 +82,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
             id_Projet: data.projetId, //rajouter dans le formulaire ultérieurement
-            id_Participant: data.participantId,
+            id_Participant: data.participantId ?? null,
             dates: null
         };
 

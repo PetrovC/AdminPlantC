@@ -26,7 +26,8 @@ const Agenda = () =>
         setOpen(true);
     };
 
-    const editEvent = () => {
+    const editEvent = ({mission}) => {
+        setCurrentMission({...mission});
         if(currentMission) {
             axios.get(process.env.REACT_APP_API_URL + '/api/tache/ById/' + currentMission.id)
                 .then(({data}) => {
@@ -66,7 +67,7 @@ const Agenda = () =>
                           week={week} 
                           onSwipedLeft={handleSwipedLeft}
                           onSwipedRight={handleSwipedRight}
-                          onEventClick={handleEventClick} />
+                          onEventClick={editEvent} />
                 <Menu open={!!anchorEl}
                     onClose={() => setAnchorEl(null)}
                     anchorEl={anchorEl}
