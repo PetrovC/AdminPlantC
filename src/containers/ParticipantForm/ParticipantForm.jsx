@@ -121,7 +121,8 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
 
             setIsLoading(true);
             // api envoie post
-            axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
+            // axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
+            axios.post(process.env.REACT_APP_API_URL + '/RegisterByPlantC', cleanData)
             .then(({data}) => {
                 dispatch(addParticipant({ ...cleanData, id: data.id }));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));

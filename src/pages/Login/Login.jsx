@@ -39,7 +39,7 @@ const Login = () => {
         //dispatch(FalseLoginRequest({email: dataDetails.email, password: dataDetails.password}))
 
         dispatch(LoginRequest({ email: dataDetails.email, password: dataDetails.password }))
-        checkStore()
+        //checkStore()
         reset()
     }
 
