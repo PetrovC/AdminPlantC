@@ -30,7 +30,7 @@ export const LoginRequest = ({email, password}) => {
 
         axios.post('http://192.168.10.60:81/Login', {email, password})
         .then(res => {
-            dispatch(APILoginSuccess(res.data))
+            dispatch(APILoginSuccess(res.data.token))
         })
         .catch(err => {
             dispatch(APILoginError(err.message))
