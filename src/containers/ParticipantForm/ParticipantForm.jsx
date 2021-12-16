@@ -62,7 +62,11 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
         prenom: '',
         numTel: '',
         email: '',
-        bce: ''
+        bce: '',
+        rue: '',
+        numero : '',
+        zipcode : '',
+        ville : '',
     };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues, resolver: yupResolver(validationSchema) });
