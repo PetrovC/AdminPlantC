@@ -22,9 +22,9 @@ const Admin = () => {
         axios.get(process.env.REACT_APP_API_URL + '/api/Participant')
             .then(({ data }) => {
                 //problème de endpoint => ne permet pas de seter la fonction.
-                // const res = data.filter(p => p.fonction === 3 || p.fonction === 4)
-                // dispatch(loadParticipants(res))
-                dispatch(loadParticipants(data));
+                 const res = data.filter(p => p.fonction === 3 || p.fonction === 4)
+                 dispatch(loadParticipants(res))
+                //dispatch(loadParticipants(data));
             })
             .catch();
         axios.get(process.env.REACT_APP_API_URL + '/api/projet/resume/all')
