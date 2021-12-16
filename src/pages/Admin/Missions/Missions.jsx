@@ -3,7 +3,7 @@ import './Missions.scss';
 import { Checkbox, Dialog, TextField, } from '@mui/material';
 import moment from 'moment';
 import ParticipantsSelect from '../../../containers/ParticipantsSelect/ParticipantsSelect';
-import ProjetsSelect from '../../../containers/ProjetSelect/ProjetSelect';
+//import ProjetsSelect from '../../../containers/ProjetSelect/ProjetSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { selectMission, updateMission } from '../../../store/missionsSlice';
