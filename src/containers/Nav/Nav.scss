@@ -1,5 +1,6 @@
 @import '../../variables';
 
+
 nav {
     position: fixed;
     width: 100%;
@@ -15,11 +16,9 @@ nav {
         height: 100%;
         
         > li {
+            @include flex-center;
             height: 100%;
             flex: 1;
-            &:nth-child(1) {
-                display: none;
-            }
             > a {
                 @include flex-center;
                 width: 100%;
@@ -31,7 +30,13 @@ nav {
             }
         }
     }
+    > .logo_plantC_Nav{
+        display: none;
+    }
 }
+
+
+
 
 @media screen and (min-width: 992px) {
     nav {
@@ -43,7 +48,8 @@ nav {
         box-shadow: 5px 5px 20px 5px gray;
         > ul {
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-around;
+            height:75vh;
             > li {
                 height: 100px;
                 flex: unset;
@@ -61,8 +67,10 @@ nav {
                     font-weight: bolder;
                     &.logo {
                         > img {
-                            height: auto;
-                            width: 100%;
+                            // width: 100vw;
+                            // height: 100vh;
+                            // height: auto;
+                            // width: 100%;
                         }
                     }
                     &:hover:not(.logo), &.active:not(.logo) {
@@ -83,4 +91,21 @@ nav {
             }
         }
     }
+    img{
+        width: 6rem;
+    }
+    nav{
+        position: relative;
+        width: 130px;
+        background-color: $light-grey;
+        min-height: 100vh;
+        box-shadow: 5px 5px 20px 5px gray;
+        > .logo_plantC_Nav{
+            width: 6rem;
+            height: 6rem;
+            margin: 2rem auto;
+            display: flex;
+        }
+    }
+    
 }

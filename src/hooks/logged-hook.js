@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 
-export const useAuth = () => {
+export const useLogged = () => {
 
     const isLogged = useSelector(state => state.login.isLogged);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!isLogged) {
-            navigate('/login');
+
+        if(isLogged) {
+            navigate('/');
         }
     }, [isLogged]);
 }

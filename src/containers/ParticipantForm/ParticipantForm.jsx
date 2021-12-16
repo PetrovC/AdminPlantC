@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete, Button, TextField } from "@mui/material";
-import { Email } from "@mui/icons-material";
+import { Email, Rule, ConfirmationNumberOutlined } from "@mui/icons-material";
 import './ParticipantForm.scss';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
 import FonctionParticipant from "../FonctionParticipant/FonctionParticipant";
@@ -100,6 +100,11 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             prenom: data.prenom,
             telephone: data.numTel,
             mail: data.email,
+            adressLine1: data.rue,
+            number: data.numero,
+            zipCode: data.zipcode,
+            city: data.ville,
+            country: "Belgique",
             bce: data.bce
         }
         if(participant?.id){
@@ -195,7 +200,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                             label="Siège Social"
                                     multiline={true}
                                     required={true}
-                                    tabIndex="3"
                                     rows={2}
                                     fullWidth={true}
                                     error={!!errors.siegeSocial}
@@ -204,73 +208,118 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                 } />
                     </div>
                 </div>
-                <div className="image">
+                {/* <div className="image">
                     <img src="assets/img/arbreForm.png" alt="logo arbre" />
-                </div>
+                </div> */}
             </div>
-            <div className="container_form_email_nom">
-                <div className="nom_email_block">
+            <div className="adress_block">
                     <div className="form-group">
-                        <Controller name="nom"
+                        <Controller name="rue"
+                                    control={control}
+                                    render={({field}) => <TextField {...field}
+                                    label="Rue"
+                                    fullWidth={true}
+                                    required={true}
+                                    error={!!errors.rue}
+                                    helperText={!!errors.rue && errors.rue.message}
+                                    />} 
+                        />
+
+                    </div>
+                    <div className="form-groupe">
+                        <Controller name="numero"
+                            control={control}
+                            render={({field}) => <TextField {...field}
+                            label="Numéro"
+                            fullWidth={true}
+                            required={true}
+                            error={!!errors.numero}
+                            helperText={!!errors.numero && errors.numero.message}/>}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="zipcode"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Code postal"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.zipCode}
+                                helperText={!!errors.zipCode && errors.zipCode.message}/>}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="ville"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Ville"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.ville}
+                                helperText={!!errors.ville && errors.ville.message}/>}/>
+                    </div>
+                </div>
+            <div className="container_form_email_nom">
+                <div className="nom_prenom_block">
+                    <div className="form-group">
+                        <Controller 
+                            name="nom"
                             control={control}
                             render={({ field }) =>
-                            <TextField {...field}
-                            label="Nom"
-                            tabIndex="4"
-                            required={true}
-                            fullWidth={true}
-                            error={!!errors.nom}
-                            helperText={!!errors.nom && errors.nom.message} />
-                            
+                                <TextField {...field}
+                                    label="Nom"
+                                    required={true}
+                                    fullWidth={true}
+                                    error={!!errors.nom}
+                                    helperText={!!errors.nom && errors.nom.message} />
+
+                            } />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="prenom"
+                            control={control}
+                            render={({ field }) =>
+                                <TextField {...field}
+                                    label="Prénom"
+                                    required={true}
+                                    fullWidth={true}
+                                    error={!!errors.prenom}
+                                    helperText={!!errors.prenom && errors.prenom.message} />
+
                             } />
                     </div>
                 </div>
-                <div className="form-group">
-                    <Controller name="email"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Email"
-                        tabIndex="6"
-                        fullWidth={true}
-                        required={true}
-                        error={!!errors.email}
-                        helperText={!!errors.email && errors.email.message}
-                        />
-                    } />
-                </div>
-
-            </div>
-            <div className="num_prenom_block">
-                <div className="form-group">
-                    <Controller name="prenom"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Prénom"
-                        tabIndex="5"
-                        required={true}
-                        fullWidth={true}
-                        error={!!errors.prenom}
-                                helperText={!!errors.prenom && errors.prenom.message} />
-                                
-                            } />
-                </div>
-
-                <div className="form-group">
-                    <Controller name="numTel"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Numéro Tel"
-                        tabIndex="7"
-                        fullWidth={true}
-                        required={true}
-                        error={!!errors.numTel}
-                        helperText={!!errors.numTel && errors.numTel.message} />
+                
+                <div className="num_email_block">
+                    <div className="form-group">
                         
-                    } />
+                        <Controller name="email"
+                            control={control}
+                            render={({ field }) =>
+                                <TextField {...field}
+                                    label="Email"
+                                    fullWidth={true}
+                                    required={true}
+                                    error={!!errors.email}
+                                    helperText={!!errors.email && errors.email.message}
+                                />
+                            } />
+                    </div>
+                    
+                    <div className="form-group">
+                        <Controller name="numTel"
+                            control={control}
+                            render={({ field }) =>
+                                <TextField {...field}
+                                    label="Numéro Tel"
+                                    fullWidth={true}
+                                    required={true}
+                                    error={!!errors.numTel}
+                                    helperText={!!errors.numTel && errors.numTel.message} />
+                                } />
+                    </div>
                 </div>
+                
             </div>
             <div className="form-group btn_valider_participant">
                 <PCLoadingButton disabled={isLoading} type="submit" variant="contained">Valider</PCLoadingButton>

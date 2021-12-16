@@ -1,11 +1,12 @@
-export const sessionService = {
+//!/ faux login en attendant le déploiement du backend /!//
+export const falseLoginService = {
     login: ({email, password}) => new Promise((resolve, reject) => {
         setTimeout(() => {
-            if(email === 'admin' && password === 'admin') {
+            if(email === 'admin@admin.com' && password === 'admin') {
                 resolve('fakeToken');
             }
             else {
-                reject();
+                reject('error');
             }
         }, 500);
     })
