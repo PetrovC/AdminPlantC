@@ -89,7 +89,7 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             }).finally(() => setIsLoading(false));
         }
     }
-
+//ajout d'adresse1 + number, zipCode, city + country
     const dataSend = data => {
         const cleanData = {
             ...data,
@@ -98,8 +98,8 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             siegeSocial: data.siegeSocial,
             nom: data.nom,
             prenom: data.prenom,
-            numTel: data.numTel,
-            email: data.email,
+            telephone: data.numTel,
+            mail: data.email,
             bce: data.bce
         }
         if(participant?.id){
