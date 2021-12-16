@@ -1,18 +1,100 @@
 @import '../../../variables';
 
-main.auth {
-    min-height: 100vh;
-    background-color: $blue;
-    padding: 50px;
-    @include flex-center;
-    .MuiPaper-root {
-        width: 300px;
-        padding: 16px;
-        .MuiTextField-root  {
-            margin: 8px 0;
-            width: 100%;
-        }
+.auth{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.logo_plantC{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 7rem;
+}
+.logo_plantC img{
+    width: 8rem;
+}
+.titre_login{
+    display: flex;
+    justify-content: center;
+}
+.block_email , .block_mdp , .block_btn{
+    margin: 2rem;
+}
 
+.block_btn Button{
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: $green;
+    color: white;
+    transition: 0.8s;
+}
+.block_btn Button:hover{
+    border: 2px solid $green;
+    border-radius: 5px;
+    background-color: white;
+    color: $green;
+    transition: 0.8s;
+}
+.image_login{
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .auth{
+        display: grid;
+        grid-template-columns: 15% 2fr 2fr 15%;
+        grid-template-rows: repeat(3,1fr);
+        justify-content: center;
+        // margin-top: 2rem;
+        height: none;
+        margin: 0;
     }
-
+    .titre_login{
+        grid-row: 1;
+        grid-column: 2/3;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding-left: 2rem;
+    }
+    .block_form , .image_login{
+        grid-row: 2;
+    }
+    .block_form{
+        margin-top: 4.9rem;
+        grid-row: 2/4;
+        grid-column: 2/3;
+        display: flex;
+        flex-direction: column;
+    }
+    .block_email , .block_mdp , .block_btn{
+        margin: 2rem;
+    }
+    .block_btn Button{
+        border: 2px solid white;
+        border-radius: 5px;
+        background-color: $green;
+        color: white;
+        transition: 0.8s;
+    }
+    .block_btn Button:hover{
+        border: 2px solid $green;
+        border-radius: 5px;
+        background-color: white;
+        color: $green;
+        transition: 0.8s;
+    }
+    .image_login{
+        grid-row: 2/3;
+        grid-column: 3/4;
+        display: flex;
+        justify-content: center;
+    }
+    .image_login img{
+        width: 25rem;
+    }
+    .logo_plantC{
+        display: none;
+    }
 }

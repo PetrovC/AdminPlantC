@@ -21,6 +21,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
+    "jwt-decode": "^3.1.2",
     "leaflet": "^1.7.1",
     "leaflet-boundary-canvas": "^1.0.0",
     "moment": "^2.29.1",

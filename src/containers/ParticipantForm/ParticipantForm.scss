@@ -63,18 +63,30 @@ border-collapse: collapse;}
             align-items: center;
             justify-content: center;
         }
+        .container_form_email_nom{
+            grid-template-rows: 1fr 1fr;
+        }
         .container_form{
             grid-column: 2/3;
         }
-        .nom_email_block{
-            grid-column: 2/3;
+        .nom_prenom_block{
+            grid-column: 2/4;
+            grid-row: 1/2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
-        .num_prenom_block{
-            grid-column: 3/4;
+        .num_email_block{
+            // grid-column: 3/4;
+            grid-column: 2/4;
+            grid-row: 2/3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
         }
         .btn_valider_participant{
             display: flex;
             justify-content: center;
+            margin: 0;
         }
         .container_form:last-child{
             padding: 0;

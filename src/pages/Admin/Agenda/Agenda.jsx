@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMission } from '../../../store/missionsSlice';
 import Calendar from '../../../containers/Calendar/Calendar';
-import { Dialog, Menu, ListItemIcon, ListItemText, MenuItem } from "@mui/material";
+import { Dialog, Menu, ListItemIcon, ListItemText, MenuItem, Select, OutlinedInput, Checkbox } from "@mui/material";
 import MissionForm from "../../../containers/MissionForm/MissionForm";
 import AddMissionButton from "../../../containers/AddMissionButton/AddMissionButton";
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,6 +20,20 @@ const Agenda = () =>
     const dispatch = useDispatch();
 
     const datas = useSelector(state => state.missions.list);
+
+    const [fonctions, setFonctions] = useState(['planteur', 'agriculteur']);
+
+    const handleChange = (event) => {
+        const {
+            target: { value }
+        } = event;
+        if (value.length) {
+            setFonctions(typeof value === "string" ? value.split(",") : value);
+        }
+        else {
+            setFonctions(fonctions => [fonctions.includes('agriculteur') ? 'planteur' : 'agriculteur']);
+        }
+      };
 
     const handleOnClick = (e) => {
         dispatch(selectMission(null));
@@ -58,12 +72,31 @@ const Agenda = () =>
     return (
         <>
             <AddMissionButton onClick={handleOnClick} />
-            <h1 className="title">Agenda</h1>
+                <div className="container_btn_agri_plant">
+                    <Select
+                    
+                        fullWidth={true}
+                        multiple
+                        value={fonctions}
+                        onChange={handleChange}
+                        renderValue={(selected) => selected.join(', ')}
+                    >
+                        <MenuItem value="planteur">
+                            <Checkbox checked={fonctions.indexOf('planteur') > -1} />
+                            <ListItemText primary="planteur" />
+                        </MenuItem>
+                        <MenuItem value="agriculteur">
+                            <Checkbox checked={fonctions.indexOf('agriculteur') > -1} />
+                            <ListItemText primary="agriculteur" />
+                        </MenuItem>
+                    </Select>
+                </div>
             <Dialog open={open} onClose={() => setOpen(false)} fullWidth={true}>
                 <MissionForm onSuccess={handleOnSuccess}/>
             </Dialog>
+
             <div className="calendar">
-                <Calendar datas={datas.filter(m => m.id_Participant)}
+            <Calendar datas={datas.filter(m => m.participantId && fonctions.includes(m.participant.fonction))}
                           week={week} 
                           onSwipedLeft={handleSwipedLeft}
                           onSwipedRight={handleSwipedRight}
