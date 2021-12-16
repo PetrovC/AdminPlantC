@@ -32,15 +32,15 @@ const Login = () => {
             email: data.email,
             password: data.password,
         }
-        console.log(dataDetails)
+        
 
         // //!/ faux login en attendant le déploiement du backend /!//
         // //!/ A remplacer par le loginRequest ci-dessous /!//
 
         //dispatch(FalseLoginRequest({email: dataDetails.email, password: dataDetails.password}))
-
+        
         dispatch(LoginRequest({ email: dataDetails.email, password: dataDetails.password }))
-        checkStore()
+        //checkStore()
         reset()
     }
 

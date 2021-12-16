@@ -26,6 +26,7 @@ const reducerLogin = (state = initialStateComments, action) => {
                 error: ''
             }
         case LOGIN_SUCCESS:
+            
             const decodedToken= jwt_decode(action.payload.token)
             return {
                 ...state,

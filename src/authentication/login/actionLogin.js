@@ -23,17 +23,19 @@ const APILoginError = (error) => {
 }
 
 export const LoginRequest = ({email, password}) => {
-
+    console.log('Im here');
     return dispatch => {
         
         dispatch(APILogin())
-
+        
         axios.post('http://192.168.10.60:81/Login', {email, password})
         .then(res => {
-            dispatch(APILoginSuccess(res.data.token))
+            
+            dispatch(APILoginSuccess(res.data))
         })
         .catch(err => {
             dispatch(APILoginError(err.message))
+            
             
         })
     }

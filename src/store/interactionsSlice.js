@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import   React,{ useNavigate }from "react"
+import   {React} from "react"
 
 export const interactionsSlice = createSlice({
     name: 'interactions',
@@ -10,7 +10,7 @@ export const interactionsSlice = createSlice({
         confirmation: {
             open: false,
         },
-        navigate: useNavigate()
+        
     },
     reducers: {
         showToast: (state, {payload}) =>  {
@@ -21,7 +21,7 @@ export const interactionsSlice = createSlice({
         },
         askConfirmation: (state, {payload}) => {
             state.confirmation = { open: true, ...payload }
-            useNavigate('participant-list')
+            
         },
         hideConfirmation: (state, {payload}) =>  {
             state.confirmation = { open: false }
