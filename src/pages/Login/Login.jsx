@@ -3,8 +3,8 @@ import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from 'react'
 import { Controller, useForm } from "react-hook-form";
-import {LoginRequest, FalseLoginRequest} from '../../authentication/login/actionLogin'
-import {checkStore} from '../../store/storeListen'
+import { LoginRequest, FalseLoginRequest } from '../../authentication/login/actionLogin'
+import { checkStore } from '../../store/storeListen'
 import { useLogged } from "../../hooks/logged-hook";
 import './Login.scss'
 
@@ -18,16 +18,16 @@ const Login = () => {
     useEffect(() => {
         console.log(loginState.token)
     }, [loginState])
-    
+
     const defaultValues = {
         email: '',
         password: ''
     }
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues})
+    const { control, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues })
 
     const submitRequest = (data) => {
-        const dataDetails = {  
+        const dataDetails = {
             email: data.email,
             password: data.password,
         }
@@ -38,7 +38,7 @@ const Login = () => {
 
         //dispatch(FalseLoginRequest({email: dataDetails.email, password: dataDetails.password}))
 
-        dispatch(LoginRequest({email: dataDetails.email, password: dataDetails.password}))
+        dispatch(LoginRequest({ email: dataDetails.email, password: dataDetails.password }))
         checkStore()
         reset()
     }
@@ -46,27 +46,27 @@ const Login = () => {
     return (
         <div>
             <main className="auth">
-            <div className="logo_plantC">
-                <img src="assets/img/PlantC.png" alt="logo" />
-            </div>
-            <h1 className="titre_login">Se Connecter</h1>
-                <form className="block_form" onSubmit= {handleSubmit(submitRequest)}>
+                <div className="logo_plantC">
+                    <img src="assets/img/PlantC.png" alt="logo" />
+                </div>
+                <h1 className="titre_login">Se Connecter</h1>
+                <form className="block_form" onSubmit={handleSubmit(submitRequest)}>
                     <div className="block_email">
                         <Controller
-                        control={control}
-                        name='email' 
-                        render={({field}) =><TextField {...field} type="email" label="Email" variant="outlined" /> }/>
+                            control={control}
+                            name='email'
+                            render={({ field }) => <TextField fullWidth={true} {...field} type="email" label="Email" variant="outlined" />} />
                     </div>
                     <div className="block_mdp">
                         <Controller
-                        control={control}
-                        name='password' 
-                        render={({field}) =><TextField {...field} type="password" label="Password" variant="outlined" /> }/>
+                            control={control}
+                            name='password'
+                            render={({ field }) => <TextField fullWidth={true} {...field} type="password" label="Password" variant="outlined" />} />
                     </div>
                     <div className="block_btn">
                         <Button disabled={loginState.isLogged} type="submit" color="primary">Se connecter</Button>
                     </div>
-                </form> 
+                </form>
                 <div className="image_login">
                     <img src="assets/img/arbreForm.png" alt="logo arbre" />
                 </div>
