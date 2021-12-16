@@ -30,8 +30,8 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         id_Projet: yup
             .number()
             .required() ,
-        id_Participant: yup.
-            number()
+        id_Participant: yup
+            .number()
             .required(),
         dates: yup
             .array()
