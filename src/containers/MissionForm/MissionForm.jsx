@@ -50,7 +50,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         type: '',
         description: '',
         id_Participant: '',
-        Id_Projet: '',
+        id_Projet: '',
         dates: [moment().startOf('day'), moment().startOf('day')]
     };
 
@@ -76,7 +76,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
     //     reset({ ...defaultValues, ...mission, participantId: mission?.id_Participant, projetId: mission?.id_Projet, dates: [mission?.date_Debut, mission?.date_Fin] });
     // }, [mission]);
     useEffect(() => {
-        reset({ ...defaultValues, ...mission, id_Participant: mission?.id_Participant, Id_Projet: mission?.id_Projet, dates: [mission?.date_Debut, mission?.date_Fin] });
+        reset({ ...defaultValues, ...mission, id_Participant: mission?.id_Participant ?? '', id_Projet: mission?.id_Projet ?? '', dates: [mission?.date_Debut, mission?.date_Fin] });
     }, [mission]);
 
     const onDelete = () => {
@@ -106,8 +106,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
             // id_Projet: data.projetId, //rajouter dans le formulaire ultérieurement
-            id_Projet: data.Id_Projet, //rajouter dans le formulaire ultérieurement
+            id_Projet: data.id_Projet, //rajouter dans le formulaire ultérieurement
             // id_Participant: data.participantId ?? null,
+            participant: participants.find(p => p.id === data.id_Participant),
             id_Participant: data.id_Participant ?? null,
             dates: null
         };
@@ -202,7 +203,7 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                     </div>
                     
                     <div className="form-group">
-                        <Controller name="projetId"
+                        <Controller name="id_Projet"
                                     control={control}
                                     render={({field}) => <ProjetsSelect {...field} />}
                                     />

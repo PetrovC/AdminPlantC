@@ -9,7 +9,7 @@ import { Email, Rule, ConfirmationNumberOutlined } from "@mui/icons-material";
 import './ParticipantForm.scss';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
 import FonctionParticipant from "../FonctionParticipant/FonctionParticipant";
-import { addParticipant, removeParticipant, updateParticipant } from '../../store/participantsSlice';
+import { addParticipant, removeParticipant, updateParticipant, loadParticipants } from '../../store/participantsSlice';
 import { showToast, askConfirmation } from "../../store/interactionsSlice";
 import { useNavigate } from 'react-router-dom';
 
@@ -84,7 +84,14 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             setIsLoading(true);
             axios.delete(process.env.REACT_APP_API_URL+ '/api/Participant/' + participant.id)
             .then(()=> {
-                dispatch(removeParticipant(participant.id));
+                axios.get(process.env.REACT_APP_API_URL + '/api/Participant')
+                .then(({ data }) => {
+                    //problème de endpoint => ne permet pas de seter la fonction.
+                    const res = data.filter(p => p.fonction === 3 || p.fonction === 4)
+                    dispatch(loadParticipants(res))
+                    //dispatch(loadParticipants(data));
+                })
+                .catch();
                 dispatch(showToast({severity: 'success', message: 'La sauvegarde a réussi' }));
                 onSuccess();
             }).catch(e => {
@@ -118,7 +125,14 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             };
             setIsLoading(true);
             axios.put(process.env.REACT_APP_API_URL + '/api/Participant/' + updatedParticipant.id, updatedParticipant).then(() => {
-                dispatch(updateParticipant(updatedParticipant));
+                axios.get(process.env.REACT_APP_API_URL + '/api/Participant')
+                .then(({ data }) => {
+                    //problème de endpoint => ne permet pas de seter la fonction.
+                    const res = data.filter(p => p.fonction === 3 || p.fonction === 4)
+                    dispatch(loadParticipants(res))
+                    //dispatch(loadParticipants(data));
+                })
+                .catch();
                 dispatch(showToast({severity: 'success', message: 'La sauvegarde a réussi'}));
                 onSuccess();
             }).catch(e => {
@@ -132,7 +146,15 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             // api envoie post
             axios.post('http://192.168.10.60:81/RegisterByPlantC', cleanData)
             .then(({data}) => {
-                dispatch(addParticipant({ ...cleanData, id: data.id }));
+                axios.get(process.env.REACT_APP_API_URL + '/api/Participant')
+                .then(({ data }) => {
+                    //problème de endpoint => ne permet pas de seter la fonction.
+                    const res = data.filter(p => p.fonction === 3 || p.fonction === 4)
+                    dispatch(loadParticipants(res))
+                    //dispatch(loadParticipants(data));
+                })
+                .catch();
+                // dispatch(addParticipant({ ...cleanData, id: data.id }));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
                 setIsLoading(false);
                 onSuccess();

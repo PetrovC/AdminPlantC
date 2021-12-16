@@ -15,9 +15,10 @@ const Login = () => {
 
     const loginState = useSelector(state => state.login);
 
-    useEffect(() => {
-        console.log(loginState.token)
-    }, [loginState])
+    // useEffect(() => {
+    //     console.log(loginState.token)
+    //     console.log(loginState.name)
+    // }, [loginState])
 
     const defaultValues = {
         email: '',
@@ -31,13 +32,13 @@ const Login = () => {
             email: data.email,
             password: data.password,
         }
-        console.log(dataDetails)
+        
 
         // //!/ faux login en attendant le déploiement du backend /!//
         // //!/ A remplacer par le loginRequest ci-dessous /!//
 
         //dispatch(FalseLoginRequest({email: dataDetails.email, password: dataDetails.password}))
-
+        
         dispatch(LoginRequest({ email: dataDetails.email, password: dataDetails.password }))
         //checkStore()
         reset()

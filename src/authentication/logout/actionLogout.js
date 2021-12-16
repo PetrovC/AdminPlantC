@@ -1,4 +1,5 @@
 import {LOGOUT} from './typeLogout'
+import { checkStore } from '../../store/storeListen'
 
 const Logout = () => {
     return {
@@ -10,7 +11,6 @@ export const logoutRequest = () => {
     return dispatch => {
 
         dispatch(Logout())
-        console.log('logout')
-
+        //checkStore()
     }
 }

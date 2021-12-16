@@ -6,6 +6,8 @@ import './ProjetsSelect.scss'
 const ProjetsSelect = forwardRef((props, ref) => {
     const projets = useSelector(state => state.projets.list)
 
+    console.log(projets);
+
     return (
         <>
         <FormControl fullWidth>
