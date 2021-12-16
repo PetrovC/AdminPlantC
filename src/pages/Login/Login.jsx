@@ -15,9 +15,10 @@ const Login = () => {
 
     const loginState = useSelector(state => state.login);
 
-    useEffect(() => {
-        console.log(loginState.token)
-    }, [loginState])
+    // useEffect(() => {
+    //     console.log(loginState.token)
+    //     console.log(loginState.name)
+    // }, [loginState])
 
     const defaultValues = {
         email: '',
@@ -39,7 +40,7 @@ const Login = () => {
         //dispatch(FalseLoginRequest({email: dataDetails.email, password: dataDetails.password}))
 
         dispatch(LoginRequest({ email: dataDetails.email, password: dataDetails.password }))
-        //checkStore()
+        checkStore()
         reset()
     }
 
