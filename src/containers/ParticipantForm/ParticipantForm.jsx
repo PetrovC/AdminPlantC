@@ -207,26 +207,20 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                     
                                 } />
                     </div>
-                </div>
-                {/* <div className="image">
-                    <img src="assets/img/arbreForm.png" alt="logo arbre" />
-                </div> */}
-            </div>
-            <div className="adress_block">
                     <div className="form-group">
-                        <Controller name="rue"
-                                    control={control}
-                                    render={({field}) => <TextField {...field}
-                                    label="Rue"
-                                    fullWidth={true}
-                                    required={true}
-                                    error={!!errors.rue}
-                                    helperText={!!errors.rue && errors.rue.message}
-                                    />} 
-                        />
+                    <Controller name="rue"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Rue"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.rue}
+                                helperText={!!errors.rue && errors.rue.message}
+                                />} 
+                    />
 
-                    </div>
-                    <div className="form-groupe">
+                </div>
+                    <div className="form-group">
                         <Controller name="numero"
                             control={control}
                             render={({field}) => <TextField {...field}
@@ -259,6 +253,13 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                 helperText={!!errors.ville && errors.ville.message}/>}/>
                     </div>
                 </div>
+                {/* <div className="image">
+                    <img src="assets/img/arbreForm.png" alt="logo arbre" />
+                </div> */}
+            </div>
+
+                
+
             <div className="container_form_email_nom">
                 <div className="nom_prenom_block">
                     <div className="form-group">
