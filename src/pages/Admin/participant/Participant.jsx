@@ -16,7 +16,9 @@ const Participant = (props) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleOnClick = () => {
-        axios.get(process.env.REACT_APP_API_URL + '/api/Participant/byID/' + id).then(({data})=>{dispatch(selectParticipant(data));
+        //problème de endpoint, le lien ne fonctionne pas
+        axios.get(process.env.REACT_APP_API_URL + '/api/Participant/byID/' + id)
+        .then(({data})=>{dispatch(selectParticipant(data));
         setOpen(true)})
     }
 
