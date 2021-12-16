@@ -46,25 +46,30 @@ const Login = () => {
     return (
         <div>
             <main className="auth">
-                <Card variant="outlined">
-                    <form onSubmit= {handleSubmit(submitRequest)}>
-                        <div>
-                            <Controller
-                            control={control}
-                            name='email' 
-                            render={({field}) =><TextField {...field} type="email" label="Email" variant="outlined" /> }/>
-                        </div>
-                        <div>
-                            <Controller
-                            control={control}
-                            name='password' 
-                            render={({field}) =><TextField {...field} type="password" label="Password" variant="outlined" /> }/>
-                        </div>
-                        <div>
-                            <Button disabled={loginState.isLogged} type="submit" color="primary">Se connecter</Button>
-                        </div>
-                    </form>            
-                </Card>
+            <div className="logo_plantC">
+                <img src="assets/img/PlantC.png" alt="logo" />
+            </div>
+            <h1 className="titre_login">Se Connecter</h1>
+                <form className="block_form" onSubmit= {handleSubmit(submitRequest)}>
+                    <div className="block_email">
+                        <Controller
+                        control={control}
+                        name='email' 
+                        render={({field}) =><TextField {...field} type="email" label="Email" variant="outlined" /> }/>
+                    </div>
+                    <div className="block_mdp">
+                        <Controller
+                        control={control}
+                        name='password' 
+                        render={({field}) =><TextField {...field} type="password" label="Password" variant="outlined" /> }/>
+                    </div>
+                    <div className="block_btn">
+                        <Button disabled={loginState.isLogged} type="submit" color="primary">Se connecter</Button>
+                    </div>
+                </form> 
+                <div className="image_login">
+                    <img src="assets/img/arbreForm.png" alt="logo arbre" />
+                </div>
             </main>
         </div>
     );
