@@ -104,7 +104,7 @@ const Missions = () => {
     const [projetsMissions, setProjetsMissions]= useState([]);
 
     useEffect(() => {
-        setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant)|| (!selected) || m.id_Participant === selected));
+        setParticipantMissions(missions.filter(m => (!selected && !m.id_Participant) || m.id_Participant === selected));
     }, [selected, missions]);
 
 
