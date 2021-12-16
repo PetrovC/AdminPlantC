@@ -155,29 +155,13 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                         <Controller
                             name="fonction"
                             control={control}
-<<<<<<< HEAD
-                            render={({ field }) => <FonctionParticipant  {...field} />}
-                            />
-=======
                             render={({ field }) => <FonctionParticipant   {...field} />}
                         />
->>>>>>> main
                     </div>
                     <div className="form-group" >
                         <Controller name="nomEntreprise"
                             control={control}
                             render={({ field }) =>
-<<<<<<< HEAD
-                            <TextField {...field}
-                            tabIndex="1"
-                            label="Nom Entreprise"
-                            required={true}
-                            fullWidth={true}
-                            error={!!errors.nomEntreprise}
-                            helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
-                            
-                        } /></div>
-=======
                                 <TextField {...field}
                                     label="Nom Entreprise"
                                     required={true}
@@ -186,23 +170,11 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                     helperText={!!errors.nomEntreprise && errors.nomEntreprise.message} />
 
                             } /></div>
->>>>>>> main
 
                     <div className="form-group">
                         <Controller name="bce"
                             control={control}
                             render={({ field }) =>
-<<<<<<< HEAD
-                            <TextField {...field}
-                            label="BCE"
-                            tabIndex="2"
-                            required={true}
-                            fullWidth={true}
-                            error={!!errors.bce}
-                            helperText={!!errors.bce && errors.bce.message} />
-                            
-                        } />
-=======
                                 <TextField {...field}
                                     label="BCE"
                                     required={true}
@@ -211,7 +183,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                     helperText={!!errors.bce && errors.bce.message} />
 
                             } />
->>>>>>> main
                     </div>
 
                     <div className="form-group">
@@ -241,16 +212,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                             name="nom"
                             control={control}
                             render={({ field }) =>
-<<<<<<< HEAD
-                            <TextField {...field}
-                            label="Nom"
-                            tabIndex="4"
-                            required={true}
-                            fullWidth={true}
-                            error={!!errors.nom}
-                            helperText={!!errors.nom && errors.nom.message} />
-                            
-=======
                                 <TextField {...field}
                                     label="Nom"
                                     required={true}
@@ -258,7 +219,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                     error={!!errors.nom}
                                     helperText={!!errors.nom && errors.nom.message} />
 
->>>>>>> main
                             } />
                     </div>
                     <div className="form-group">
@@ -275,55 +235,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                             } />
                     </div>
                 </div>
-<<<<<<< HEAD
-                <div className="form-group">
-                    <Controller name="email"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Email"
-                        tabIndex="6"
-                        fullWidth={true}
-                        required={true}
-                        error={!!errors.email}
-                        helperText={!!errors.email && errors.email.message}
-                        />
-                    } />
-                </div>
-
-            </div>
-            <div className="num_prenom_block">
-                <div className="form-group">
-                    <Controller name="prenom"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Prénom"
-                        tabIndex="5"
-                        required={true}
-                        fullWidth={true}
-                        error={!!errors.prenom}
-                                helperText={!!errors.prenom && errors.prenom.message} />
-                                
-                            } />
-                </div>
-
-                <div className="form-group">
-                    <Controller name="numTel"
-                        control={control}
-                        render={({ field }) =>
-                        <TextField {...field}
-                        label="Numéro Tel"
-                        tabIndex="7"
-                        fullWidth={true}
-                        required={true}
-                        error={!!errors.numTel}
-                        helperText={!!errors.numTel && errors.numTel.message} />
-                        
-                    } />
-                </div>
-            </div>
-=======
                 
                 <div className="num_email_block">
                     <div className="form-group">
@@ -361,7 +272,6 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
 
 
 
->>>>>>> main
             <div className="form-group btn_valider_participant">
                 <PCLoadingButton disabled={isLoading} type="submit" variant="contained">Valider</PCLoadingButton>
             </div>
