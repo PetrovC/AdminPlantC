@@ -24,11 +24,11 @@ $name-size: 38px;
             }
             &:hover::before {
                 position: absolute;
-                left: 5px;
+                left: -20px;
                 content: '\f100';
                 font-family: "Font Awesome 5 Free"; 
                 font-weight: 900;
-                font-size: 2rem; 
+                font-size: 1rem; 
             }
         }
         &.right-button {
@@ -40,11 +40,11 @@ $name-size: 38px;
             }
             &:hover::before {
                 position: absolute;
-                right: 5px;
+                right: -20px;
                 content: '\f101';
                 font-family: "Font Awesome 5 Free"; 
                 font-weight: 900;
-                font-size: 2rem; 
+                font-size: 1rem; 
             }
         }
     }

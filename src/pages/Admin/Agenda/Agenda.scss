@@ -28,18 +28,22 @@
 .dates .date.right-button::before{
     right: -20px;
     content: '\f101';
+    font-size: 1rem;
 }
 .dates .date.left-button::before {
     left: -20px;
     content: '\f100';
+    font-size: 1rem;
 }
 .dates .date.right-button:hover::before{
     right: -20px;
     content: '\f101';
+    font-size: 1rem;
 }
 .dates .date.left-button:hover::before{
     left: -20px;
     content: '\f100';
+    font-size: 1rem;
 }
 @media screen and (min-width: 992px) {
     .dates .date{
@@ -59,13 +63,14 @@
         font-size: 1rem;
     }
     .dates .date.right-button::before{
-        right: 0px;
+        right: -20px;
         content: '\f101';
-
+        font-size: 1rem;
     }
     .dates .date.left-button::before {
-        left: 0px;
+        left: -20px;
         content: '\f100';
+        font-size: 1rem;
     }
     .dates .date.right-button:hover::before , .dates .date.left-button:hover::before{
         position: absolute;
@@ -74,12 +79,14 @@
         font-size: 1rem;
     }
     .dates .date.right-button:hover::before{
-        right: -10px;
+        right: -20px;
         content: '\f101';
+        font-size: 1rem;
     }
     .dates .date.left-button:hover::before{
-        left: -10px;
+        left: -20px;
         content: '\f100';
+        font-size: 1rem;
     }
 
     // .btn_agri_agenda ,.btn_planteur_agenda{
