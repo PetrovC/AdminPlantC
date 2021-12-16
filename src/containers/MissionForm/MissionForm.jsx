@@ -23,21 +23,23 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
             .string()
             .max(50, 'max 50')
             .required('Le champ est requis'),
-        description: yup
-            .string()
-            .required("Le champs est requis")
-            .max(255),
-        id_Projet: yup
-            .number()
-            .required() ,
-        id_Participant: yup
-            .number()
-            .required(),
         dates: yup
             .array()
-            .of(yup.date()
-            .required('Veuillez entrer 2 dates')),
+            .of(yup.date().required('Veuillez entrer 2 dates')),
+        description: yup
+            .string()
+            .max(255)
     });
+
+    const dispatch = useDispatch();
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const mission = useSelector(state => state.missions.selectedMission);
+    const participants = useSelector(state => state.participants.list);
+    const projets = useSelector(state => state.projets.list)
+
+    const types = ['Tondre', 'Arroser', 'Planter', 'Elaguer'];
 
     const defaultValues = {
         type: '',
@@ -46,24 +48,9 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
         projetId: '',
         dates: [moment().startOf('day'), moment().startOf('day')]
     };
-    const dispatch = useDispatch();
-
-    const [isLoading, setIsLoading] = useState(false);
-    // added
-    // const participant = useSelector(state => state.participant.selectParticipant);
-
-    const mission = useSelector(state => state.missions.selectedMission);
-    const participants = useSelector(state => state.participants.list);
-    const projets = useSelector(state => state.projets.list)
-
-
-    const types = ['préparation du sol','semis préalable à la plantation','paillage','plantation','arrosage','désherbage','taille-entretien'];
-
-    
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({defaultValues, resolver : yupResolver(validationSchema)});
 
-    //add id
     useEffect(() => {
         reset({ ...defaultValues, ...mission, participantId: mission?.id_Participant, projetId: mission?.id_Projet, dates: [mission?.date_Debut, mission?.date_Fin] });
     }, [mission]);
@@ -91,7 +78,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
 
         const cleanData= {
             ...data,
-            description: data.description,
             date_Debut: formatDate(data.dates[0]), 
             date_Fin: formatDate(data.dates[1] ?? data.dates[0]),
             id_Projet: data.projetId, //rajouter dans le formulaire ultérieurement
@@ -154,7 +140,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                         onChange={(e, data) => field.onChange(data)}
                                         renderInput={(params) =>
                                             <TextField {...field} {...params}
-                                                color="success"
                                                 required={true}
                                                 label="Type d'Activité"
                                                 fullWidth={true}
@@ -162,7 +147,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                                 helperText={!!errors.type && errors.type.message} />
 
                                     } />
-                                    
                         } />
                     </div>
                     <div className="form-group">
@@ -170,7 +154,6 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     control={control} 
                                     render={({ field }) => 
                                             <TextField {...field}
-                                                color="success"
                                                 label="Description"
                                                 multiline={true}
                                                 fullWidth={true}
@@ -187,14 +170,13 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                     />}
                                     />
                     </div>
-                    
                     <div className="form-group">
                         <Controller name="projetId"
                                     control={control}
                                     render={({field}) => <ProjetsSelect {...field} />}
                                     />
                     </div>
-                    <div className="form-group ">
+                    <div className="form-group">
                         <Controller name="dates"
                                     control={control} 
                                     render={({ field }) => <DateRangePicker {...field}
@@ -204,14 +186,12 @@ const MissionForm = ({ onSuccess = () => {}, onError = () => {} }) => {
                                         inputFormat="DD/MM/YYYY"
                                         renderInput={(startParams, endParams) => <>
                                             <TextField {...startParams}
-                                                color="success"
                                                 required={true}
                                                 fullWidth={true}
                                                 error={!!errors.dates}
                                                 helperText={!!errors.dates && errors.dates.message} />
                                             <Box sx={{ mx: 2 }}> au </Box>
                                             <TextField {...endParams}
-                                                color="success"
                                                 required={true}
                                                 fullWidth={true}
                                                 error={!!errors.dates} />

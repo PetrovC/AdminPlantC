@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete, Button, TextField } from "@mui/material";
-import { Email } from "@mui/icons-material";
+import { Email, Rule, ConfirmationNumberOutlined } from "@mui/icons-material";
 import './ParticipantForm.scss';
 import PCLoadingButton from '../PCLoadingButton/PCLoadingButton';
 import FonctionParticipant from "../FonctionParticipant/FonctionParticipant";
@@ -62,14 +62,18 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
         prenom: '',
         numTel: '',
         email: '',
-        bce: ''
+        bce: '',
+        rue: '',
+        numero : '',
+        zipcode : '',
+        ville : '',
     };
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues, resolver: yupResolver(validationSchema) });
 
 
     const [isLoading, setIsLoading] = useState(false);
-    const participant = useSelector(state => state.participants.selectedParticipant)
+    const participant = useSelector(state => state.participants.selectParticipant)
 
     useEffect(() => {
         reset({...defaultValues, ...participant})  
@@ -89,7 +93,7 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             }).finally(() => setIsLoading(false));
         }
     }
-
+//ajout d'adresse1 + number, zipCode, city + country
     const dataSend = data => {
         const cleanData = {
             ...data,
@@ -98,8 +102,13 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
             siegeSocial: data.siegeSocial,
             nom: data.nom,
             prenom: data.prenom,
-            numTel: data.numTel,
-            email: data.email,
+            telephone: data.numTel,
+            mail: data.email,
+            adressLine1: data.rue,
+            number: data.numero,
+            zipCode: data.zipcode,
+            city: data.ville,
+            country: "Belgique",
             bce: data.bce
         }
         if(participant?.id){
@@ -121,7 +130,7 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
 
             setIsLoading(true);
             // api envoie post
-            axios.post(process.env.REACT_APP_API_URL + '/api/participant', cleanData)
+            axios.post('http://192.168.10.60:81/RegisterByPlantC', cleanData)
             .then(({data}) => {
                 dispatch(addParticipant({ ...cleanData, id: data.id }));
                 dispatch(showToast({ severity: 'success', message: 'La sauvegarde a réussi' }));
@@ -200,11 +209,59 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                     
                                 } />
                     </div>
+                    <div className="form-group">
+                    <Controller name="rue"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Rue"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.rue}
+                                helperText={!!errors.rue && errors.rue.message}
+                                />} 
+                    />
+
                 </div>
-                <div className="image">
+                    <div className="form-group">
+                        <Controller name="numero"
+                            control={control}
+                            render={({field}) => <TextField {...field}
+                            label="Numéro"
+                            fullWidth={true}
+                            required={true}
+                            error={!!errors.numero}
+                            helperText={!!errors.numero && errors.numero.message}/>}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="zipcode"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Code postal"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.zipCode}
+                                helperText={!!errors.zipCode && errors.zipCode.message}/>}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <Controller name="ville"
+                                control={control}
+                                render={({field}) => <TextField {...field}
+                                label="Ville"
+                                fullWidth={true}
+                                required={true}
+                                error={!!errors.ville}
+                                helperText={!!errors.ville && errors.ville.message}/>}/>
+                    </div>
+                </div>
+                {/* <div className="image">
                     <img src="assets/img/arbreForm.png" alt="logo arbre" />
-                </div>
+                </div> */}
             </div>
+
+                
+
             <div className="container_form_email_nom">
                 <div className="nom_prenom_block">
                     <div className="form-group">
@@ -265,6 +322,7 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                 } />
                     </div>
                 </div>
+                
             </div>
             
 

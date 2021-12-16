@@ -2,7 +2,8 @@
 .form-group {
 margin-bottom: 12px;
 //background-color: rgb(174, 224, 193);
-border-collapse: collapse;}
+border-collapse: collapse;
+}
 
     .image{
         display: none;
@@ -13,6 +14,9 @@ border-collapse: collapse;}
     .btn_valider_participant{
         display: flex;
         justify-content: center;
+    }
+    .num_email_block{
+        margin-top: 2rem;
     }
 
     @media screen and (min-width:1330px){
@@ -30,6 +34,7 @@ border-collapse: collapse;}
         }
         .nom_email_block{
             grid-column: 2/3;
+            margin-top: -2rem;
         }
         .num_prenom_block{
             grid-column: 3/4;
@@ -40,10 +45,10 @@ border-collapse: collapse;}
         }
         .container_form:last-child{
             padding: 0;
-            margin: 1rem 2rem;
+            // margin: 1rem 2rem;
         }
         .container_form_email_nom{
-            margin-top: -2rem;
+            margin-top: -1rem;
         }
         .image{
             display: grid;
@@ -60,14 +65,16 @@ border-collapse: collapse;}
         .container_form_image ,.container_form_email_nom{
             display: grid;
             grid-template-columns: 10% 2fr 2fr 10%;
-            align-items: center;
-            justify-content: center;
+            // align-items: center;
+            // justify-content: center;
         }
         .container_form_email_nom{
             grid-template-rows: 1fr 1fr;
         }
         .container_form{
-            grid-column: 2/3;
+            grid-column: 2/4;
+            margin: 0;
+            // width: 100%;
         }
         .nom_prenom_block{
             grid-column: 2/4;
@@ -81,6 +88,7 @@ border-collapse: collapse;}
             grid-row: 2/3;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            margin-top: -3rem;
 
         }
         .btn_valider_participant{
@@ -90,10 +98,10 @@ border-collapse: collapse;}
         }
         .container_form:last-child{
             padding: 0;
-            margin: 1rem 2rem;
+            // margin: 1rem 2rem;
         }
         .container_form_email_nom{
-            margin-top: -2rem;
+            margin-top: -1rem;
         }
         .image{
             display: grid;
