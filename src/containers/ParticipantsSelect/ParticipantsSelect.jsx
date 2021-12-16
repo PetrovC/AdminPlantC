@@ -15,7 +15,6 @@ const ParticipantsSelect = forwardRef((props, ref) => {
         <FormControl fullWidth={true}>
             <InputLabel id="label-participant" >Participants</InputLabel>
             <Select  {...props} labelId="label-participant" label="Participants" fullWidth={true} displayEmpty={true}>
-                {/* <MenuItem value={''}>Non assignée</MenuItem> */}
                 {participants.map(participant => <MenuItem key={participant.id} value={participant.id}>{participant.nom} {participant.prenom}</MenuItem>)}
             </Select>
         </FormControl>

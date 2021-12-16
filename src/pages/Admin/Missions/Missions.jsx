@@ -4,7 +4,7 @@ import { Checkbox, Dialog, TextField, } from '@mui/material';
 import moment from 'moment';
 import ParticipantsSelect from '../../../containers/ParticipantsSelect/ParticipantsSelect';
 //import ProjetsSelect from '../../../containers/ProjetSelect/ProjetSelect';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import axios from 'axios';
 import { selectMission, updateMission } from '../../../store/missionsSlice';
 import { useDispatch } from 'react-redux';
@@ -94,6 +94,9 @@ const Missions = () => {
 
     const dispatch = useDispatch();
 
+    const select = useRef(null);
+    
+
     const [selected, setSelected] = useState('');
     const [open, setOpen] = useState(false);
 
@@ -107,6 +110,7 @@ const Missions = () => {
 
     const handleOnChange = e => {
         setSelected(e.target.value);
+        console.log("select => ", select)
     }
 
     const handleOnSuccess = () => {
@@ -125,7 +129,7 @@ const Missions = () => {
             <h1 className="title" >
                 <span>Missions :</span>
                 <span>
-                    <ParticipantsSelect value={selected} onChange={handleOnChange} />
+                    <ParticipantsSelect ref={select} value={selected} onChange={handleOnChange} />
                 </span>
             {/* <span><ProjetsSelect value={selected} onChange={handleOnChange} /></span> */}
             </h1>
