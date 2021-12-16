@@ -2,7 +2,8 @@
 .form-group {
 margin-bottom: 12px;
 //background-color: rgb(174, 224, 193);
-border-collapse: collapse;}
+border-collapse: collapse;
+}
 
     .image{
         display: none;
@@ -13,6 +14,9 @@ border-collapse: collapse;}
     .btn_valider_participant{
         display: flex;
         justify-content: center;
+    }
+    .num_email_block{
+        margin-top: 2rem;
     }
 
     @media screen and (min-width:1330px){
@@ -30,6 +34,7 @@ border-collapse: collapse;}
         }
         .nom_email_block{
             grid-column: 2/3;
+            margin-top: -2rem;
         }
         .num_prenom_block{
             grid-column: 3/4;
@@ -81,6 +86,7 @@ border-collapse: collapse;}
             grid-row: 2/3;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            margin-top: -3rem;
 
         }
         .btn_valider_participant{
