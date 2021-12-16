@@ -203,9 +203,9 @@ const ParticipantForm = ({onSuccess = () => {}, onError = () => {}}) => {
                                 } />
                     </div>
                 </div>
-                <div className="image">
+                {/* <div className="image">
                     <img src="assets/img/arbreForm.png" alt="logo arbre" />
-                </div>
+                </div> */}
             </div>
             <div className="container_form_email_nom">
                 <div className="nom_prenom_block">
