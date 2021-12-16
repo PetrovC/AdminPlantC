@@ -122,7 +122,11 @@ const Missions = () => {
     return (
         <>
             <AddMissionButton onClick={handleOnClick} />
-            <h1 className="title" ><span>Missions :</span><span><ParticipantsSelect value={selected} onChange={handleOnChange} /></span>
+            <h1 className="title" >
+                <span>Missions :</span>
+                <span>
+                    <ParticipantsSelect value={selected} onChange={handleOnChange} />
+                </span>
             {/* <span><ProjetsSelect value={selected} onChange={handleOnChange} /></span> */}
             </h1>
             <ul className="missions fadeIn-list">
